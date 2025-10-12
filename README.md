@@ -54,6 +54,7 @@ This is the core backend logic that orchestrates the entire process.
 
 The workflow can be summarized as follows:
 
+<img width="6512" height="17134" alt="workflow" src="https://github.com/user-attachments/assets/08c460f3-e95c-418c-819e-bb81d57ebdea" />
 
 
 ## 4\. Technology Stack
