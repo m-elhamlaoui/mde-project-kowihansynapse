@@ -62,7 +62,7 @@ The workflow can be summarized as follows:
 The selection of technologies is based on robustness, scalability, and ecosystem maturity, primarily centered around Python and JavaScript.
 
 
-
+<img width="19095" height="9473" alt="tech-architecture" src="https://github.com/user-attachments/assets/5c24eb2e-7e41-4aad-bf07-da2999e909d3" />
 
   - *Frontend*
 
