@@ -1,0 +1,10 @@
+
+# KowihanGenerator - Exclure fichiers de test et build
+KowihanGenerator/bin/
+KowihanGenerator/target/
+KowihanGenerator/test-*.xmi
+KowihanGenerator/test-models/
+KowihanGenerator/generation.log
+KowihanGenerator/kowihan-generator.jar
+KowihanGenerator/fat-jar/
+KowihanGenerator/lib/
