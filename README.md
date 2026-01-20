@@ -172,6 +172,60 @@ KowihanSynapse offers two complementary approaches for REST API development, eac
 
 This methodology relies on a formal process of transforming UML models into operational source code, ensuring a robust architecture compliant with software engineering standards.
 
+#### API Metamodel (Ecore)
+
+The MDE approach is grounded in a formal metamodel defined in Ecore (Eclipse Modeling Framework). This metamodel establishes the structural and semantic constraints that govern the generation process, ensuring consistency and correctness of the generated REST APIs.
+
+**Metamodel Structure:**
+
+The `APIMetamodel.ecore` defines the following core concepts:
+
+- **ApplicationModel**: The root element representing the complete API specification
+  - Project metadata (name, framework, Python version, description)
+  - Collections of entities, interactions, database configuration, and authentication settings
+  - OCL constraints ensuring valid Python versions (3.7-3.12), framework selection (DJANGO, FLASK, FASTAPI), and proper project naming
+
+- **Entity**: Represents business domain objects mapped to database tables
+  - Attributes defining data fields with type constraints
+  - Relationships with other entities (ONE_TO_ONE, ONE_TO_MANY, MANY_TO_ONE, MANY_TO_MANY)
+  - Operations and indexes for performance optimization
+  - Validation rules for entity names, table names, and attribute uniqueness
+
+- **Attribute**: Defines entity properties with rich metadata
+  - Supported data types: STRING, TEXT, INTEGER, FLOAT, DECIMAL, BOOLEAN, DATE, DATETIME, TIME, UUID, EMAIL, URL, JSON
+  - Constraints: primary key, nullable, unique, default values, length limits
+  - Validation ensuring primary keys are non-nullable and string lengths do not exceed 5000 characters
+
+- **Relationship**: Models associations between entities
+  - Cardinality types with cascade behavior (CASCADE, SET_NULL, PROTECT)
+  - Bidirectional relationship support with related names
+
+- **Interaction**: Represents API endpoints derived from sequence diagrams
+  - HTTP methods: GET, POST, PUT, PATCH, DELETE
+  - Endpoint URL patterns with validation
+  - Participants (actors, entities, systems) and message sequences
+
+- **DatabaseConfig**: Specifies database connection parameters
+  - Supported systems: POSTGRESQL, MYSQL, SQLITE, ORACLE
+  - Host, port, and database name with validation constraints
+
+- **AuthenticationConfig**: Defines API security mechanisms
+  - Methods: JWT, SESSION, OAUTH2, BASIC
+  - Token expiry configuration (5-10080 minutes)
+
+- **APIFeatures**: Controls optional API capabilities
+  - Pagination, filtering, Swagger/OpenAPI documentation, CORS support
+
+**Visual Representation:**
+
+<img width="1920" alt="Ecore Metamodel - Collapsed View" src="assets/MM_closed.png" />
+
+*Figure 1: Complete API Metamodel hierarchy showing all classes and their relationships*
+
+<img width="1920" alt="Ecore Metamodel - Expanded View" src="assets/MM_open.png" />
+
+*Figure 2: Detailed view of metamodel classes with attributes, constraints, and structural features*
+
 #### Step 1: UML Class Diagram Import
 
 The process begins with importing the application's structural model.
