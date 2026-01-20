@@ -14,6 +14,8 @@
     - [Data Flow](#32-data-flow)
 4.  [Technology Stack](#4-technology-stack)
 5.  [Installation](#5-installation)
+6.  [Platform Demonstration](#6-platform-demonstration)
+
 ## 1\. Abstract
 
 KowihanSynapse is a hybrid framework designed to modernize REST API development by combining model-driven engineering and artificial intelligence within a unified generation process. It offers two complementary modes of operation: an MDE-based approach that transforms UML models expressed in Papyrus XMI into production-ready code using Acceleo model-to-text templates, and an AI-driven approach that enables API generation through structured conversational interaction with specialized AI agents. The framework supports multiple backend technologies, including Django and Flask, and integrates seamlessly with various database management systems such as PostgreSQL, MySQL, SQLite, and Oracle, delivering deployment-ready backend code that follows established architectural and development best practices.
@@ -62,7 +64,8 @@ The workflow can be summarized as follows:
 The selection of technologies is based on robustness, scalability, and ecosystem maturity, primarily centered around Python and JavaScript.
 
 
-<img width="19095" height="9473" alt="tech-architecture" src="https://github-production-user-asset-6210df.s3.amazonaws.com/164963723/537566183-20d54765-c06b-40d6-8037-6077d5a64b17.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20260119%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260119T122314Z&X-Amz-Expires=300&X-Amz-Signature=3158fef342ec63adc994fae32e244f02c8113805bb6e4252c159130f5d2a378a&X-Amz-SignedHeaders=host" />
+<img width="2144" height="2047" alt="image" src="https://github.com/user-attachments/assets/e8b20ccb-201a-48ae-8e32-3d35cd6d9c56" />
+
 
   ###  Frontend
 - **React 18** + TypeScript: Used to build a dynamic single-page user interface for UML modeling, AI interaction, and configuration workflows
@@ -158,3 +161,118 @@ npm install
 npm run dev
 # Access: http://localhost:5173
 ```
+## 6\. Platform Demonstration
+
+KowihanSynapse offers two complementary approaches for REST API development, each addressing specific needs in terms of architectural rigor and implementation speed.
+
+<img width="1920" height="884" alt="2" src="https://github.com/user-attachments/assets/1f86d2ab-fd32-4491-aa73-3956ecbdf890" />
+
+<img width="1919" height="893" alt="3" src="https://github.com/user-attachments/assets/491700e6-f301-4ebc-9063-96879f16003c" />
+
+### 6.1 Model-Driven Engineering (MDE) Approach
+
+This methodology relies on a formal process of transforming UML models into operational source code, ensuring a robust architecture compliant with software engineering standards.
+
+#### Step 1: UML Class Diagram Import
+
+The process begins with importing the application's structural model.
+
+- **Action**: Upload files in .xmi, .uml, or .xml format, generated from recognized modeling tools (Papyrus, Eclipse UML)
+- **Objective**: Formal definition of business entities, their attributes, and inter-entity relationships forming the API's architectural foundation
+
+<img width="1904" height="890" alt="4" src="https://github.com/user-attachments/assets/31961acc-94e6-4c15-bab5-ca89cf6011af" />
+
+#### Step 2: Sequence Diagram Import (Optional)
+
+This step enriches the model with custom behavioral logic.
+
+- **Action**: Import sequence diagrams specifying complex interactions and business logic
+- **Alternative mechanism**: In the absence of sequence diagrams, the system automatically generates complete CRUD operations for all detected entities
+
+<img width="1901" height="893" alt="5" src="https://github.com/user-attachments/assets/7d8e6135-e67b-4791-8ed0-8f5ff9a686fe" />
+
+#### Step 3: Project Configuration
+
+Configuration of the technology stack according to project requirements.
+
+- **Framework**: Selection of Python framework (Django or Flask) based on the targeted architecture
+- **Database**: Configuration of the database management system (PostgreSQL, MySQL, SQLite, Oracle) with connection and authentication parameters
+- **Advanced features**: Optional activation of pagination, filtering, Swagger/OpenAPI documentation, and CORS header management
+
+<img width="1220" height="817" alt="6" src="https://github.com/user-attachments/assets/df145cb5-98f2-4b21-a0f1-82f2bdf04fb1" />
+<img width="1220" height="754" alt="7" src="https://github.com/user-attachments/assets/10aea914-bc61-4fbe-b0f5-b3b235116ca0" />
+
+#### Step 4: Review & Generation
+
+Quality control phase preceding model transformation.
+
+- **Verification**: Synthetic review of configuration (project metadata, UML models, database parameters)
+- **Execution**: Launch of the Acceleo transformation engine for automatic source code generation
+
+<img width="1902" height="891" alt="8" src="https://github.com/user-attachments/assets/4c82623f-545a-4621-9fe0-150f90310185" />
+<img width="1906" height="888" alt="9" src="https://github.com/user-attachments/assets/1722995d-1c1e-4553-a500-a7a47deefdb7" />
+
+#### Step 5: Artifact Download
+
+Retrieval of the final deliverable ready for deployment.
+
+- **Deliverable**: Structured ZIP archive containing the complete API source code
+- **Deployment status**: Pre-configured application, ready for execution in local or remote environments
+
+<img width="1920" height="875" alt="10" src="https://github.com/user-attachments/assets/a230e36f-026e-481d-935a-30fb513b77d3" />
+
+### 6.2 AI-Powered Generation Approach
+
+This approach leverages AI techniques to translate natural language specifications into functional backend architectures.
+
+#### Step 1: Objective Definition
+
+Formalization of requirements in accessible terms.
+
+- **Action**: Enter a textual description of the project (example: "Library management API with books, authors, and loans")
+- **Assistance**: Predefined suggestions to accelerate specification of common use cases (e-commerce, management systems, content platforms)
+
+<img width="1905" height="895" alt="11" src="https://github.com/user-attachments/assets/cc114a0b-2c35-4222-9d43-a97c8b06f0cf" />
+
+#### Step 2: Database Management System Selection
+
+Choice of storage engine adapted to performance requirements.
+
+- **Available options**: PostgreSQL (complex queries, ACID compliance), MySQL (web applications), SQLite (lightweight solutions), Oracle (enterprise environments)
+- **Decision support**: Technical indicators on the characteristics of each solution
+
+<img width="1901" height="889" alt="12" src="https://github.com/user-attachments/assets/8c01e063-9420-410e-bc4c-8fbac4ccedea" />
+
+#### Step 3: Framework Selection
+
+Choice of Python backend technology.
+
+- **Django**: Comprehensive framework preferred for feature-rich applications, with a "batteries included" approach
+- **Flask**: Minimalist framework recommended for microservices and modular prototypes
+
+<img width="1907" height="897" alt="13" src="https://github.com/user-attachments/assets/bd4ef182-25a9-4578-97f5-d8c664f9b717" />
+
+#### Step 4: Data Model Definition
+
+Data structure specification via simplified syntax.
+
+- **Action**: Enumeration of entities and their attributes (example: Book: title, isbn | Author: name, biography)
+- **Intelligent detection**: Automatic recognition of relationships between entities for constructing a coherent relational schema
+
+<img width="1905" height="890" alt="14" src="https://github.com/user-attachments/assets/10bba606-ba40-46f1-9c11-1eb0ded37ec0" />
+
+#### Step 5: AI Synthesis
+
+Final source code generation.
+
+- **Verification**: Validation of specification (objective, database, framework)
+- **Generation**: Activation of the multi-agent system for automatic synthesis of backend architecture, database migrations, and API endpoints
+
+<img width="1894" height="890" alt="15" src="https://github.com/user-attachments/assets/c76509b0-b220-4fd2-bdac-923c0cbb26f7" />
+<img width="1915" height="892" alt="16" src="https://github.com/user-attachments/assets/f5e9afb7-578d-413b-99d0-8fcf459b69ba" />
+
+
+
+
+**Additional resource**: A complete demonstration video is available at the following link: 
+[https://www.canva.com/design/DAG-4RQtPxw/7cxjXSL0rElS4SuPahMNcA/watch?utm_content=DAG-4RQtPxw&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hebd6ca075c](https://www.canva.com/design/DAG-9BFmGzI/FqkG56EhR7SsaLlv3iaWmw/edit?utm_content=DAG-9BFmGzI&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
