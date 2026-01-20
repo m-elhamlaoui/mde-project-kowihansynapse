@@ -7,7 +7,7 @@
 [file (aModel.projectName + '/requirements.txt', false, 'UTF-8')] 
 [if (aModel.framework = 'DJANGO')]
 # Django Core
-Django==4.2.7  # ✅ VERSION COMPATIBLE
+Django==4.2.7  #  VERSION COMPATIBLE
 djangorestframework==3.14.0
 django-filter==23.3
 
@@ -40,7 +40,7 @@ oracledb==1.4.1
 [/if]
 
 # System dependencies
-setuptools==68.2.2  # ✅ AJOUTÉ POUR SIMPLEJWT
+setuptools==68.2.2  
 [/if]
 
 [if (aModel.framework = 'FLASK')]
@@ -368,9 +368,9 @@ INSTALLED_APPS = ['['/]
 
 [if (aModel.apiFeatures <> null)]
 [if (aModel.apiFeatures.swagger)]
-SPECTACULAR_SETTINGS = {  # ✅ EN DEHORS DE LA LISTE
+SPECTACULAR_SETTINGS = {  
     'TITLE': '[aModel.projectName/] API',
-    'DESCRIPTION': "[aModel.description/]", # ✅ GUILLEMETS DOUBLES
+    'DESCRIPTION': "[aModel.description/]", 
     'VERSION': '1.0.0',
 }
 [/if]
