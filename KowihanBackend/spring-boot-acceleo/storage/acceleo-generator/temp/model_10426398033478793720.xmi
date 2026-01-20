@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmi:XMI xmlns:xmi="http://www.omg.org/XMI" xmlns:api="http://www.kowihan.com/APIMetamodel" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmi:version="2.0">
+  <api:ApplicationModel description="djd" framework="DJANGO" projectName="djd" pythonVersion="3.9" xmi:id="_e4ac2bc3d22449f8bede57b183cd44c4">
+    <database host="localhost" name="" port="5432" type="POSTGRESQL" xmi:id="_cbd0999e068a4108a22cadc7f040c708" xsi:type="api:DatabaseConfig"/>
+    <authentication enabled="false" tokenExpiryMinutes="60" xmi:id="_3a11c6e08d864c6ea8105277e941f8bf" xsi:type="api:AuthenticationConfig"/>
+    <apiFeatures corsEnabled="true" filtering="true" pagination="true" swagger="true" xmi:id="_f9bf78a51c14418da95b7775de9a59cd" xsi:type="api:APIFeatures"/>
+    <entities description="Entity Hotel" isAbstract="false" name="Hotel" tableName="hotels" xmi:id="_86b9558821184da188328cfb87531e8a" xsi:type="api:Entity">
+      <attributes isNullable="false" isPrimaryKey="true" isUnique="false" name="id" type="INTEGER" xmi:id="_0b20dbf03ac24e59b87a4efc414226bc" xsi:type="api:Attribute"/>
+      <attributes isNullable="true" isPrimaryKey="false" isUnique="false" maxLength="255" name="name" type="STRING" xmi:id="_7d723919554948f284e08b3c9066ae3c" xsi:type="api:Attribute"/>
+      <attributes isNullable="true" isPrimaryKey="false" isUnique="false" maxLength="255" name="address" type="STRING" xmi:id="_84096ab3d6ba411f9b4b35c5c6819a6a" xsi:type="api:Attribute"/>
+      <attributes isNullable="true" isPrimaryKey="false" isUnique="false" name="stars" type="INTEGER" xmi:id="_2c9b9997122e46f58bd3b3f3d9926ac2" xsi:type="api:Attribute"/>
+    </entities>
+    <entities description="Entity Room" isAbstract="false" name="Room" tableName="rooms" xmi:id="_6bdb5256582e4c3a8de41596b8dcbb48" xsi:type="api:Entity">
+      <attributes isNullable="false" isPrimaryKey="true" isUnique="false" name="idroom" type="INTEGER" xmi:id="_fcfee358e3394452ab8f4c94c7cb5ea6" xsi:type="api:Attribute"/>
+      <attributes isNullable="true" isPrimaryKey="false" isUnique="false" name="isavailable" type="BOOLEAN" xmi:id="_a136ee9323fa4eeb8a32fe8ae180bffc" xsi:type="api:Attribute"/>
+      <attributes isNullable="true" isPrimaryKey="false" isUnique="false" name="price" type="FLOAT" xmi:id="_cda1a1f295a5479c9c5d91b512d5af58" xsi:type="api:Attribute"/>
+      <relationships name="hotel" onDelete="CASCADE" targetEntity="Hotel" type="ONE_TO_ONE" xmi:id="_201d0354ab4748f08c6ba2829e4db51b" xsi:type="api:Relationship"/>
+      <relationships name="booking" onDelete="CASCADE" targetEntity="Booking" type="MANY_TO_ONE" xmi:id="_b6970028bf4644589a85fcb7a282fb0d" xsi:type="api:Relationship"/>
+    </entities>
+    <entities description="Entity Customer" isAbstract="false" name="Customer" tableName="customers" xmi:id="_1c89eee02b874714bb2daeaaf7a95126" xsi:type="api:Entity">
+      <attributes isNullable="false" isPrimaryKey="true" isUnique="false" name="idcustomer" type="INTEGER" xmi:id="_1541f5b6b3b94687932bb191d0899f7d" xsi:type="api:Attribute"/>
+      <attributes isNullable="true" isPrimaryKey="false" isUnique="false" maxLength="255" name="firstname" type="STRING" xmi:id="_439249043ecb4fa58be14d2402dcc7c9" xsi:type="api:Attribute"/>
+      <attributes isNullable="true" isPrimaryKey="false" isUnique="false" maxLength="255" name="lastname" type="STRING" xmi:id="_e68fb557915b4809b905a1eca7948db8" xsi:type="api:Attribute"/>
+    </entities>
+    <entities description="Entity Booking" isAbstract="false" name="Booking" tableName="bookings" xmi:id="_e09bd3bcf0fe450598f2e92d3b247750" xsi:type="api:Entity">
+      <attributes isNullable="false" isPrimaryKey="true" isUnique="false" name="id" type="INTEGER" xmi:id="_defd052b9c71442baf7f6342ec6e26bd" xsi:type="api:Attribute"/>
+      <attributes isNullable="true" isPrimaryKey="false" isUnique="false" name="startdate" type="DATE" xmi:id="_fafa60a92dd24101b58f39b511bae05f" xsi:type="api:Attribute"/>
+      <attributes isNullable="true" isPrimaryKey="false" isUnique="false" name="enddate" type="DATE" xmi:id="_8b3a1fc92f1b4b249c70f75be976822f" xsi:type="api:Attribute"/>
+      <relationships name="customer" onDelete="CASCADE" targetEntity="Customer" type="ONE_TO_ONE" xmi:id="_3278485c5e604dd698d90085fd6d8ad8" xsi:type="api:Relationship"/>
+    </entities>
+  </api:ApplicationModel>
+</xmi:XMI>

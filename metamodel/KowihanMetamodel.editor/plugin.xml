@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated APIMetamodel -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="APIMetamodel.presentation.APIMetamodelModelWizardID"
+            name="%_UI_APIMetamodelModelWizard_label"
+            class="APIMetamodel.presentation.APIMetamodelModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/APIMetamodelModelFile.gif">
+         <description>%_UI_APIMetamodelModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated APIMetamodel -->
+      <editor
+            id="APIMetamodel.presentation.APIMetamodelEditorID"
+            name="%_UI_APIMetamodelEditor_label"
+            icon="icons/full/obj16/APIMetamodelModelFile.gif"
+            extensions="apimetamodel"
+            class="APIMetamodel.presentation.APIMetamodelEditor"
+            contributorClass="APIMetamodel.presentation.APIMetamodelActionBarContributor">
+      </editor>
+   </extension>
+
+</plugin>

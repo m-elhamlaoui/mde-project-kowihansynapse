@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/KowihanMetamodel/src" modelPluginID="KowihanMetamodel"
+    modelName="APIMetamodel" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="21.0" copyrightFields="false"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>APIMetamodel.ecore</foreignModel>
+  <genPackages prefix="APIMetamodel" disposableProviderFactory="true" ecorePackage="APIMetamodel.ecore#/">
+    <genClasses ecoreClass="APIMetamodel.ecore#//ApplicationModel">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute APIMetamodel.ecore#//ApplicationModel/projectName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute APIMetamodel.ecore#//ApplicationModel/framework"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute APIMetamodel.ecore#//ApplicationModel/pythonVersion"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute APIMetamodel.ecore#//ApplicationModel/description"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference APIMetamodel.ecore#//ApplicationModel/entities"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference APIMetamodel.ecore#//ApplicationModel/interactions"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference APIMetamodel.ecore#//ApplicationModel/database"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference APIMetamodel.ecore#//ApplicationModel/authentication"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference APIMetamodel.ecore#//ApplicationModel/apiFeatures"/>
+    </genClasses>
+    <genClasses ecoreClass="APIMetamodel.ecore#//Entity">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute APIMetamodel.ecore#//Entity/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute APIMetamodel.ecore#//Entity/description"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute APIMetamodel.ecore#//Entity/isAbstract"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute APIMetamodel.ecore#//Entity/tableName"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference APIMetamodel.ecore#//Entity/attributes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference APIMetamodel.ecore#//Entity/relationships"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference APIMetamodel.ecore#//Entity/operations"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference APIMetamodel.ecore#//Entity/indexes"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference APIMetamodel.ecore#//Entity/parentEntity"/>
+    </genClasses>
+    <genClasses ecoreClass="APIMetamodel.ecore#//Attribute">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute APIMetamodel.ecore#//Attribute/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute APIMetamodel.ecore#//Attribute/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute APIMetamodel.ecore#//Attribute/isPrimaryKey"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute APIMetamodel.ecore#//Attribute/isNullable"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute APIMetamodel.ecore#//Attribute/isUnique"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute APIMetamodel.ecore#//Attribute/defaultValue"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute APIMetamodel.ecore#//Attribute/maxLength"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute APIMetamodel.ecore#//Attribute/minValue"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute APIMetamodel.ecore#//Attribute/maxValue"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute APIMetamodel.ecore#//Attribute/helpText"/>
+    </genClasses>
+    <genClasses ecoreClass="APIMetamodel.ecore#//Relationship">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute APIMetamodel.ecore#//Relationship/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute APIMetamodel.ecore#//Relationship/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute APIMetamodel.ecore#//Relationship/targetEntity"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute APIMetamodel.ecore#//Relationship/relatedName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute APIMetamodel.ecore#//Relationship/onDelete"/>
+    </genClasses>
+    <genClasses ecoreClass="APIMetamodel.ecore#//Operation">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute APIMetamodel.ecore#//Operation/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute APIMetamodel.ecore#//Operation/returnType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute APIMetamodel.ecore#//Operation/visibility"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference APIMetamodel.ecore#//Operation/parameters"/>
+    </genClasses>
+    <genClasses ecoreClass="APIMetamodel.ecore#//Parameter">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute APIMetamodel.ecore#//Parameter/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute APIMetamodel.ecore#//Parameter/type"/>
+    </genClasses>
+    <genClasses ecoreClass="APIMetamodel.ecore#//Index">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute APIMetamodel.ecore#//Index/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute APIMetamodel.ecore#//Index/fields"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute APIMetamodel.ecore#//Index/isUnique"/>
+    </genClasses>
+    <genClasses ecoreClass="APIMetamodel.ecore#//Interaction">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute APIMetamodel.ecore#//Interaction/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute APIMetamodel.ecore#//Interaction/useCaseDescription"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute APIMetamodel.ecore#//Interaction/httpMethod"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute APIMetamodel.ecore#//Interaction/endpoint"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference APIMetamodel.ecore#//Interaction/participants"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference APIMetamodel.ecore#//Interaction/messages"/>
+    </genClasses>
+    <genClasses ecoreClass="APIMetamodel.ecore#//Participant">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute APIMetamodel.ecore#//Participant/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute APIMetamodel.ecore#//Participant/actorType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute APIMetamodel.ecore#//Participant/entityName"/>
+    </genClasses>
+    <genClasses ecoreClass="APIMetamodel.ecore#//Message">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute APIMetamodel.ecore#//Message/sequenceNumber"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute APIMetamodel.ecore#//Message/operation"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute APIMetamodel.ecore#//Message/messageType"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference APIMetamodel.ecore#//Message/fromParticipant"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference APIMetamodel.ecore#//Message/toParticipant"/>
+    </genClasses>
+    <genClasses ecoreClass="APIMetamodel.ecore#//DatabaseConfig">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute APIMetamodel.ecore#//DatabaseConfig/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute APIMetamodel.ecore#//DatabaseConfig/host"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute APIMetamodel.ecore#//DatabaseConfig/port"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute APIMetamodel.ecore#//DatabaseConfig/name"/>
+    </genClasses>
+    <genClasses ecoreClass="APIMetamodel.ecore#//AuthenticationConfig">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute APIMetamodel.ecore#//AuthenticationConfig/enabled"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute APIMetamodel.ecore#//AuthenticationConfig/method"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute APIMetamodel.ecore#//AuthenticationConfig/tokenExpiryMinutes"/>
+    </genClasses>
+    <genClasses ecoreClass="APIMetamodel.ecore#//APIFeatures">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute APIMetamodel.ecore#//APIFeatures/pagination"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute APIMetamodel.ecore#//APIFeatures/filtering"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute APIMetamodel.ecore#//APIFeatures/swagger"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute APIMetamodel.ecore#//APIFeatures/corsEnabled"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>
