@@ -90,7 +90,6 @@ The selection of technologies is based on robustness, scalability, and ecosystem
 - **Flask** (REST API): Exposes REST APIs for AI-based processing and orchestration.
 - **Ollama** (LLM integration): Runs and manages local large language models for code-related reasoning.
 - **Llama 3.2** (Language model): Performs natural language understanding and specification extraction.
-- **LangChain** (Agent orchestration): Orchestrates LLM agents and manages conversational context.
 
 ###  Model-Driven Engineering
 - **Eclipse EMF** (Ecore models): Defines metamodels and processes UML models for model transformation.
