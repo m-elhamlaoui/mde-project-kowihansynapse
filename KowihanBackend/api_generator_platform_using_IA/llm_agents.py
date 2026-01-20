@@ -249,7 +249,7 @@ class EntityEnricher(BaseAgent):
         for attr in all_attrs:
             attr_name = attr.get('name', '').lower()
             if attr_name and attr_name not in current_attr_names and attr_name not in seen:
-                # 🔒 PROTECTION: Normaliser l'attribut pour garantir toutes les clés
+                #  PROTECTION: Normaliser l'attribut pour garantir toutes les clés
                 normalized_attr = {
                     'name': attr.get('name', 'unknown'),
                     'type': attr.get('type', 'string'),
@@ -482,8 +482,8 @@ class SecurityAuditor(BaseAgent):
         
         # Vérifier l'authentification
         if project_specs.get('entities', {}).get('has_user_management'):
-            recommendations.append("✅ Authentification JWT détectée")
-            warnings.append("⚠️ Assurez-vous de définir des SECRET_KEY robustes")
+            recommendations.append("Authentification JWT détectée")
+            warnings.append(" Assurez-vous de définir des SECRET_KEY robustes")
             recommendations.append("Utilisez django-ratelimit pour limiter les tentatives de connexion")
         
         # Vérifier CORS
@@ -493,11 +493,11 @@ class SecurityAuditor(BaseAgent):
         recommendations.append("Utilisez des permissions granulaires (IsOwnerOrReadOnly)")
         
         # Validation
-        warnings.append("⚠️ Validez toutes les entrées utilisateur")
+        warnings.append(" Validez toutes les entrées utilisateur")
         recommendations.append("Utilisez Django validators pour les champs sensibles")
         
         # HTTPS
-        warnings.append("⚠️ Activez SECURE_SSL_REDIRECT=True en production")
+        warnings.append(" Activez SECURE_SSL_REDIRECT=True en production")
         
         return AgentResponse(
             success=True,
@@ -534,7 +534,7 @@ class DocumentationGenerator(BaseAgent):
         framework = specs.get('framework', {}).get('type', 'Django')
         
         return f"""
-# 🚀 Quick Start Guide
+#  Quick Start Guide
 
 ## Installation rapide
 
@@ -571,7 +571,7 @@ curl -X POST http://localhost:8000/api/users/register/ \\
         """Génère une référence API"""
         endpoints = specs.get('entities', {}).get('endpoints', [])
         
-        doc = "# 📚 API Reference\n\n"
+        doc = "#  API Reference\n\n"
         
         # Grouper par ressource
         resources = {}
@@ -655,7 +655,7 @@ class AgentOrchestrator:
         """
         Traite les spécifications avec tous les agents
         """
-        logger.info("🤖 Démarrage du traitement avec agents LLM...")
+        logger.info(" Démarrage du traitement avec agents LLM...")
         
         results = {
             "original_specs": specifications,
@@ -714,7 +714,7 @@ class AgentOrchestrator:
         docs = self.doc_generator.generate_enhanced_docs(specifications)
         results['agent_insights']['documentation'] = docs.data
         
-        logger.info("✅ Traitement avec agents terminé")
+        logger.info(" Traitement avec agents terminé")
         
         return results
     
@@ -729,12 +729,12 @@ class AgentOrchestrator:
         # Analyse des spécifications
         if 'specification_analysis' in insights:
             spec_analysis = insights['specification_analysis']
-            summary += f"## 🎯 Analyse du projet\n"
+            summary += f"##  Analyse du projet\n"
             summary += f"- **Domaine**: {spec_analysis.get('domain', 'N/A')}\n"
             summary += f"- **Complexité**: {spec_analysis.get('complexity', 'N/A')}\n\n"
             
             if spec_analysis.get('suggestions'):
-                summary += "### 💡 Suggestions\n"
+                summary += "###  Suggestions\n"
                 for sugg in spec_analysis['suggestions']:
                     summary += f"- {sugg}\n"
                 summary += "\n"
@@ -762,7 +762,7 @@ class AgentOrchestrator:
         
         # Best practices
         if 'best_practices' in insights:
-            summary += "## ✨ Best Practices\n"
+            summary += "##  Best Practices\n"
             for bp in insights['best_practices'][:5]:  # Top 5
                 summary += f"- {bp}\n"
             summary += "\n"
@@ -770,7 +770,7 @@ class AgentOrchestrator:
         # Sécurité
         if 'security_audit' in insights:
             security = insights['security_audit']
-            summary += f"## 🔒 Sécurité (Score: {security.get('score', 'N/A')})\n"
+            summary += f"##  Sécurité (Score: {security.get('score', 'N/A')})\n"
             
             if security.get('warnings'):
                 summary += "**Avertissements:**\n"
