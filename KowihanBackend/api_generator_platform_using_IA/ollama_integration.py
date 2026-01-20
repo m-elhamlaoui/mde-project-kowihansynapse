@@ -1,7 +1,4 @@
-"""
-Module d'intégration Ollama pour utiliser Llama localement
-Pas de limites de requêtes, 100% gratuit et privé
-"""
+
 
 import requests
 import json
@@ -21,7 +18,7 @@ class OllamaConfig:
 
 
 class OllamaClient:
-    """Client pour communiquer avec Ollama (Llama local)"""
+   
     
     def __init__(self, config: OllamaConfig = None):
         self.config = config or OllamaConfig()
@@ -34,15 +31,13 @@ class OllamaClient:
             if response.status_code == 200:
                 models = response.json().get('models', [])
                 available_models = [m['name'] for m in models]
-                logger.info(f"✅ Ollama disponible. Modèles: {available_models}")
                 
-                # Vérifier si le modèle configuré est disponible
+                
                 if not any(self.config.model in m for m in available_models):
-                    logger.warning(f"⚠️ Modèle {self.config.model} non trouvé. Téléchargez-le avec: ollama pull {self.config.model}")
             else:
-                logger.warning("⚠️ Ollama n'est pas accessible. Installez-le: https://ollama.ai")
+                logger.warning(" Ollama n'est pas accessible. Installez-le: https://ollama.ai")
         except requests.exceptions.RequestException as e:
-            logger.warning(f"⚠️ Ollama non disponible: {e}")
+            logger.warning(f" Ollama non disponible: {e}")
             logger.info("Installation: curl -fsSL https://ollama.ai/install.sh | sh")
     
     def generate(self, prompt: str, system_prompt: str = None) -> str:
@@ -393,9 +388,9 @@ Réponds en JSON:
         score = "B" if has_auth else "C"
         
         warnings = [
-            "⚠️ Définissez des SECRET_KEY robustes",
-            "⚠️ Validez toutes les entrées utilisateur",
-            "⚠️ Activez HTTPS en production"
+            " Définissez des SECRET_KEY robustes",
+            " Validez toutes les entrées utilisateur",
+            " Activez HTTPS en production"
         ]
         
         recommendations = [
@@ -417,11 +412,11 @@ Réponds en JSON:
         }
 
 
-# Fonction utilitaire pour installer Ollama automatiquement
+
 def install_ollama_instructions():
     """Retourne les instructions d'installation d'Ollama"""
     return """
-# 🦙 Installation d'Ollama (Llama local)
+#  Installation d'Ollama (Llama local)
 
 ## Linux / macOS:
 ```bash
