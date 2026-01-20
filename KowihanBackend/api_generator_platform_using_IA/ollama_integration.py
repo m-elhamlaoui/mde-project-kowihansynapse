@@ -71,7 +71,7 @@ class OllamaClient:
             if system_prompt:
                 payload["system"] = system_prompt
             
-            logger.info(f"🤖 Appel Ollama ({self.config.model})...")
+            logger.info(f" Appel Ollama ({self.config.model})...")
             response = requests.post(
                 url,
                 json=payload,
@@ -81,17 +81,17 @@ class OllamaClient:
             if response.status_code == 200:
                 result = response.json()
                 generated_text = result.get('response', '')
-                logger.info(f"✅ Réponse générée ({len(generated_text)} chars)")
+                logger.info(f"Réponse générée ({len(generated_text)} chars)")
                 return generated_text
             else:
-                logger.error(f"❌ Erreur Ollama: {response.status_code}")
+                logger.error(f" Erreur Ollama: {response.status_code}")
                 return self._fallback_response(prompt)
         
         except requests.exceptions.Timeout:
-            logger.error("⏱️ Timeout Ollama")
+            logger.error(" Timeout Ollama")
             return self._fallback_response(prompt)
         except Exception as e:
-            logger.error(f"❌ Erreur Ollama: {e}")
+            logger.error(f" Erreur Ollama: {e}")
             return self._fallback_response(prompt)
     
     def chat(self, messages: List[Dict[str, str]]) -> str:
@@ -186,7 +186,7 @@ Réponds en JSON avec cette structure:
             if json_start >= 0 and json_end > json_start:
                 json_str = response[json_start:json_end]
                 result = json.loads(json_str)
-                logger.info(f"✅ Analyse Llama: {result.get('domain')}")
+                logger.info(f" Analyse Llama: {result.get('domain')}")
                 return result
             else:
                 logger.warning("Pas de JSON dans la réponse, fallback")
@@ -407,7 +407,7 @@ Réponds en JSON:
         ]
         
         if has_auth:
-            recommendations.insert(0, "✅ Authentification détectée")
+            recommendations.insert(0, " Authentification détectée")
             score = "B+"
         
         return {
@@ -476,7 +476,7 @@ ollama run llama3.2 "Hello, écris-moi un JSON"
 curl http://localhost:11434/api/tags
 ```
 
-✅ Si vous voyez une liste de modèles, c'est bon!
+ Si vous voyez une liste de modèles, c'est bon!
 """
 
 
