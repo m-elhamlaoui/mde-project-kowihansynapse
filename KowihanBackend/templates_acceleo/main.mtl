@@ -7,7 +7,7 @@
 [file (aModel.projectName + '/requirements.txt', false, 'UTF-8')] 
 [if (aModel.framework = 'DJANGO')]
 # Django Core
-Django==4.2.7  # ✅ VERSION COMPATIBLE
+Django==4.2.7  
 djangorestframework==3.14.0
 django-filter==23.3
 
@@ -368,9 +368,9 @@ INSTALLED_APPS = ['['/]
 
 [if (aModel.apiFeatures <> null)]
 [if (aModel.apiFeatures.swagger)]
-SPECTACULAR_SETTINGS = {  # ✅ EN DEHORS DE LA LISTE
+SPECTACULAR_SETTINGS = { 
     'TITLE': '[aModel.projectName/] API',
-    'DESCRIPTION': "[aModel.description/]", # ✅ GUILLEMETS DOUBLES
+    'DESCRIPTION': "[aModel.description/]", 
     'VERSION': '1.0.0',
 }
 [/if]
@@ -720,7 +720,6 @@ class [entity.name/](db.Model):
         }
 
 [/for]
-# ==================== INTERACTIONS ====================
 
 [for (interaction : Interaction | aModel.interactions)]
 @app.route('[interaction.endpoint/]', methods=['['/]'[interaction.httpMethod/]'[']'/])
@@ -822,7 +821,7 @@ def create_[entity.name.toLowerCase()/]_item():  # ← AJOUTER _item
 [if (aModel.authentication <> null and aModel.authentication.enabled and aModel.authentication.method = 'JWT')]
 @jwt_required()
 [/if]
-def update_[entity.name.toLowerCase()/]_item(item_id):  # ← AJOUTER _item
+def update_[entity.name.toLowerCase()/]_item(item_id):  
     try:
         data = request.get_json()
         item = [entity.name/].query.get(item_id)
