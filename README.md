@@ -12,10 +12,11 @@
 3.  [System Architecture](#3-system-architecture)
     - [Architectural Layers](#31-architectural-layers)
     - [Data Flow](#32-data-flow)
-4.  [Technology Stack](#4-technology-stack)
-5.  [Comparative Analysis: MDE vs AI Through 3 Use Cases](#5-comparative-Analysis)
-6.  [Installation](#6-installation)
-7.  [Platform Demonstration](#7-platform-demonstration)
+4.  [API Metamodel (Ecore)](#4-api-metamodel-ecore)
+5.  [Technology Stack](#5-technology-stack)
+6.  [Comparative Analysis: MDE vs AI Through 3 Use Cases](#6-comparative-Analysis)
+7.  [Installation](#7-installation)
+8.  [Platform Demonstration](#8-platform-demonstration)
 
 ## 1\. Abstract
 
@@ -180,9 +181,65 @@ The workflow can be summarized as follows:
 
 <img width="2053" height="2390" alt="dataflow" src="https://github.com/user-attachments/assets/a77f140d-177a-416b-be27-dcfef51ae9f3" />
 
+## 4\. API Metamodel (Ecore)
 
+The MDE approach in KowihanSynapse is grounded in a formal metamodel defined in Ecore (Eclipse Modeling Framework). This metamodel establishes the structural and semantic constraints that govern the generation process, ensuring consistency and correctness of the generated REST APIs.
 
-## 4\. Technology Stack
+### 4.1 Metamodel Structure
+
+![Metamodel Class Diagram](assets/MM_Class_Diagram.png)
+
+*The class diagram above illustrates the complete structure of the API metamodel, showing the relationships between ApplicationModel, Entity, Attribute, Relationship, Interaction, DatabaseConfig, AuthenticationConfig, and APIFeatures. Each entity is defined with its attributes, operations, and OCL constraints that ensure model validity and generation correctness.*
+
+The `APIMetamodel.ecore` defines the following core concepts:
+
+- **ApplicationModel**: The root element representing the complete API specification
+  - Project metadata (name, framework, Python version, description)
+  - Collections of entities, interactions, database configuration, and authentication settings
+  - OCL constraints ensuring valid Python versions (3.7-3.12), framework selection (DJANGO, FLASK, FASTAPI), and proper project naming
+
+- **Entity**: Represents business domain objects mapped to database tables
+  - Attributes defining data fields with type constraints
+  - Relationships with other entities (ONE_TO_ONE, ONE_TO_MANY, MANY_TO_ONE, MANY_TO_MANY)
+  - Operations and indexes for performance optimization
+  - Validation rules for entity names, table names, and attribute uniqueness
+
+- **Attribute**: Defines entity properties with rich metadata
+  - Supported data types: STRING, TEXT, INTEGER, FLOAT, DECIMAL, BOOLEAN, DATE, DATETIME, TIME, UUID, EMAIL, URL, JSON
+  - Constraints: primary key, nullable, unique, default values, length limits
+  - Validation ensuring primary keys are non-nullable and string lengths do not exceed 5000 characters
+
+- **Relationship**: Models associations between entities
+  - Cardinality types with cascade behavior (CASCADE, SET_NULL, PROTECT)
+  - Bidirectional relationship support with related names
+
+- **Interaction**: Represents API endpoints derived from sequence diagrams
+  - HTTP methods: GET, POST, PUT, PATCH, DELETE
+  - Endpoint URL patterns with validation
+  - Participants (actors, entities, systems) and message sequences
+
+- **DatabaseConfig**: Specifies database connection parameters
+  - Supported systems: POSTGRESQL, MYSQL, SQLITE, ORACLE
+  - Host, port, and database name with validation constraints
+
+- **AuthenticationConfig**: Defines API security mechanisms
+  - Methods: JWT, SESSION, OAUTH2, BASIC
+  - Token expiry configuration (5-10080 minutes)
+
+- **APIFeatures**: Controls optional API capabilities
+  - Pagination, filtering, Swagger/OpenAPI documentation, CORS support
+
+### 4.2 Visual Representations
+
+<img width="1920" alt="Ecore Metamodel - Collapsed View" src="assets/MM_closed.png" />
+
+*Figure 1: Complete API Metamodel hierarchy showing all classes and their relationships*
+
+<img width="1920" alt="Ecore Metamodel - Expanded View" src="assets/MM_open.png" />
+
+*Figure 2: Detailed view of metamodel classes with attributes, constraints, and structural features*
+
+## 5\. Technology Stack
 
 The selection of technologies is based on robustness, scalability, and ecosystem maturity, primarily centered around Python and JavaScript.
 
@@ -220,9 +277,11 @@ The selection of technologies is based on robustness, scalability, and ecosystem
 - **Django 4.2** + Django REST Framework
 - **Flask 2.3** + Flask-SQLAlchemy
 
-## 5\. Comparative Analysis: MDE vs AI Through 3 Use Cases
+![Supported Frameworks And Data Base Management Systems](assets/SupportedFM-DBMS-Darkmode.png)
+
+## 6\. Comparative Analysis: MDE vs AI Through 3 Use Cases
 This section evaluates both KowihanSynapse approaches through three representative scenarios, analyzing architectural rigor, ease of modification, and suitability of each method.
-### 5.1 Use Case 1: Multi-Vendor E-Commerce Platform
+### 6.1 Use Case 1: Multi-Vendor E-Commerce Platform
 
 #### **Project Context**
 
@@ -339,7 +398,7 @@ This section evaluates both KowihanSynapse approaches through three representati
 
 **Verdict:  AI Inadequate - Too much manual development for this complexity level**
 
-### 5.2 Use Case 2: Personal Blog (MVP)
+### 6.2 Use Case 2: Personal Blog (MVP)
 
 #### **Project Context**
 
@@ -353,8 +412,6 @@ This section evaluates both KowihanSynapse approaches through three representati
 - No complex business rules beyond basic validations
 - All operations are standard REST patterns
 - No custom workflows requiring sequence diagrams
-
-
 
 
 #### **MDE Approach**
@@ -445,7 +502,7 @@ This section evaluates both KowihanSynapse approaches through three representati
 - **Just enough rigor**: Clean code without over-engineering
 
 **Verdict:  AI Optimal for fast, simple API**
-### 5.3 Use Case 3: Library Management System
+### 6.3 Use Case 3: Library Management System
 
 #### **Project Context**
 
@@ -563,7 +620,7 @@ This section evaluates both KowihanSynapse approaches through three representati
 
 
 
-### 5.4 Comparative Synthesis Table
+### 6.4 Comparative Synthesis Table
 
 | Criterion | E-Commerce (Case 1) | Blog MVP (Case 2) | Library (Case 3) |
 |-----------|-------------------|------------------|------------------|
@@ -598,12 +655,9 @@ This section evaluates both KowihanSynapse approaches through three representati
 - **Phase 1 (Exploration - AI)**: Ultra-fast concept validation with AI
 - **Phase 2 (Consolidation - MDE)**: If concept validated and rules become complex, migration to MDE
 - **Maintenance**: MDE ensures controlled evolution with automatic change propagation
-## 6\. Installation
-- **Flask 2.3** + Flask-SQLAlchemy 
 
-![Supported Frameworks And Data Base Management Systems](assets/SupportedFM-DBMS-Darkmode.png)
 
-## 5\. Installation
+## 7\. Installation
 
 
 ### Prerequisites
@@ -663,7 +717,7 @@ npm install
 npm run dev
 # Access: http://localhost:5173
 ```
-## 7\. Platform Demonstration
+## 8\. Platform Demonstration
 
 KowihanSynapse offers two complementary approaches for REST API development, each addressing specific needs in terms of architectural rigor and implementation speed.
 
@@ -671,67 +725,9 @@ KowihanSynapse offers two complementary approaches for REST API development, eac
 
 <img width="1919" height="893" alt="3" src="https://github.com/user-attachments/assets/491700e6-f301-4ebc-9063-96879f16003c" />
 
-### 6.1 Model-Driven Engineering (MDE) Approach
+### 8.1 Model-Driven Engineering (MDE) Approach
 
-This methodology relies on a formal process of transforming UML models into operational source code, ensuring a robust architecture compliant with software engineering standards.
-
-#### API Metamodel (Ecore)
-
-The MDE approach is grounded in a formal metamodel defined in Ecore (Eclipse Modeling Framework). This metamodel establishes the structural and semantic constraints that govern the generation process, ensuring consistency and correctness of the generated REST APIs.
-
-**Metamodel Structure:**
-
-![Metamodel Class Diagram](assets/MM_Class_Diagram.png)
-
-*The class diagram above illustrates the complete structure of the API metamodel, showing the relationships between ApplicationModel, Entity, Attribute, Relationship, Interaction, DatabaseConfig, AuthenticationConfig, and APIFeatures. Each entity is defined with its attributes, operations, and OCL constraints that ensure model validity and generation correctness.*
-
-The `APIMetamodel.ecore` defines the following core concepts:
-
-- **ApplicationModel**: The root element representing the complete API specification
-  - Project metadata (name, framework, Python version, description)
-  - Collections of entities, interactions, database configuration, and authentication settings
-  - OCL constraints ensuring valid Python versions (3.7-3.12), framework selection (DJANGO, FLASK, FASTAPI), and proper project naming
-
-- **Entity**: Represents business domain objects mapped to database tables
-  - Attributes defining data fields with type constraints
-  - Relationships with other entities (ONE_TO_ONE, ONE_TO_MANY, MANY_TO_ONE, MANY_TO_MANY)
-  - Operations and indexes for performance optimization
-  - Validation rules for entity names, table names, and attribute uniqueness
-
-- **Attribute**: Defines entity properties with rich metadata
-  - Supported data types: STRING, TEXT, INTEGER, FLOAT, DECIMAL, BOOLEAN, DATE, DATETIME, TIME, UUID, EMAIL, URL, JSON
-  - Constraints: primary key, nullable, unique, default values, length limits
-  - Validation ensuring primary keys are non-nullable and string lengths do not exceed 5000 characters
-
-- **Relationship**: Models associations between entities
-  - Cardinality types with cascade behavior (CASCADE, SET_NULL, PROTECT)
-  - Bidirectional relationship support with related names
-
-- **Interaction**: Represents API endpoints derived from sequence diagrams
-  - HTTP methods: GET, POST, PUT, PATCH, DELETE
-  - Endpoint URL patterns with validation
-  - Participants (actors, entities, systems) and message sequences
-
-- **DatabaseConfig**: Specifies database connection parameters
-  - Supported systems: POSTGRESQL, MYSQL, SQLITE, ORACLE
-  - Host, port, and database name with validation constraints
-
-- **AuthenticationConfig**: Defines API security mechanisms
-  - Methods: JWT, SESSION, OAUTH2, BASIC
-  - Token expiry configuration (5-10080 minutes)
-
-- **APIFeatures**: Controls optional API capabilities
-  - Pagination, filtering, Swagger/OpenAPI documentation, CORS support
-
-**Visual Representation:**
-
-<img width="1920" alt="Ecore Metamodel - Collapsed View" src="assets/MM_closed.png" />
-
-*Figure 1: Complete API Metamodel hierarchy showing all classes and their relationships*
-
-<img width="1920" alt="Ecore Metamodel - Expanded View" src="assets/MM_open.png" />
-
-*Figure 2: Detailed view of metamodel classes with attributes, constraints, and structural features*
+This methodology relies on a formal process of transforming UML models into operational source code, ensuring a robust architecture compliant with software engineering standards. The complete metamodel structure is detailed in [Section 4](#4-api-metamodel-ecore).
 
 #### Step 1: UML Class Diagram Import
 
@@ -781,7 +777,7 @@ Retrieval of the final deliverable ready for deployment.
 
 <img width="1920" height="875" alt="10" src="https://github.com/user-attachments/assets/a230e36f-026e-481d-935a-30fb513b77d3" />
 
-### 6.2 AI-Powered Generation Approach
+### 8.2 AI-Powered Generation Approach
 
 This approach leverages AI techniques to translate natural language specifications into functional backend architectures.
 
@@ -821,7 +817,7 @@ Data structure specification via simplified syntax.
 
 <img width="1905" height="890" alt="14" src="https://github.com/user-attachments/assets/10bba606-ba40-46f1-9c11-1eb0ded37ec0" />
 
-#### Step 5: AI Synthesis
+#### Step 5: Code Generation
 
 Final source code generation.
 
@@ -830,9 +826,6 @@ Final source code generation.
 
 <img width="1894" height="890" alt="15" src="https://github.com/user-attachments/assets/c76509b0-b220-4fd2-bdac-923c0cbb26f7" />
 <img width="1915" height="892" alt="16" src="https://github.com/user-attachments/assets/f5e9afb7-578d-413b-99d0-8fcf459b69ba" />
-
-
-
 
 **Additional resource**: A complete demonstration video is available at the following link: 
 [https://www.canva.com/design/DAG-4RQtPxw/7cxjXSL0rElS4SuPahMNcA/watch?utm_content=DAG-4RQtPxw&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hebd6ca075c](https://www.canva.com/design/DAG-9BFmGzI/FqkG56EhR7SsaLlv3iaWmw/edit?utm_content=DAG-9BFmGzI&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
