@@ -178,6 +178,10 @@ The MDE approach is grounded in a formal metamodel defined in Ecore (Eclipse Mod
 
 **Metamodel Structure:**
 
+![Metamodel Class Diagram](assets/MM_Class_Diagram.png)
+
+*The class diagram above illustrates the complete structure of the API metamodel, showing the relationships between ApplicationModel, Entity, Attribute, Relationship, Interaction, DatabaseConfig, AuthenticationConfig, and APIFeatures. Each entity is defined with its attributes, operations, and OCL constraints that ensure model validity and generation correctness.*
+
 The `APIMetamodel.ecore` defines the following core concepts:
 
 - **ApplicationModel**: The root element representing the complete API specification
