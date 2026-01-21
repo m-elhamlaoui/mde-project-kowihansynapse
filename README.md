@@ -277,7 +277,7 @@ The selection of technologies is based on robustness, scalability, and ecosystem
 - **Django 4.2** + Django REST Framework
 - **Flask 2.3** + Flask-SQLAlchemy
 
-![Supported Frameworks And Data Base Management Systems](assets/SupportedFM-DBMS-Darkmode.png)
+![Supported Frameworks And Data Base Management Systems](assets/SupportedFM-DBMS.png)
 
 ## 6\. Comparative Analysis: MDE vs AI Through 3 Use Cases
 This section evaluates both KowihanSynapse approaches through three representative scenarios, analyzing architectural rigor, ease of modification, and suitability of each method.
