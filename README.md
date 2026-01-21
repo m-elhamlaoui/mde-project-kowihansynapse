@@ -30,6 +30,8 @@ The proliferation of service-oriented architectures has positioned the *REST API
 
 The architecture of KowihanSynapse is designed as a modular, multi-layered system that separates concerns from user interaction to code generation. The data flows through a pipeline that progressively refines a high-level user request into a formal application model, which is then used as a single source of truth for code generation.
 
+![High-Level System Architecture](assets/High-Level-System-WithBackground.png)
+
 ### 3.1 Architectural Layers
 The proposed system architecture is organized into well-defined layers, each responsible for a specific set of functionalities. This layered design ensures modularity, scalability, and clear separation of concerns between user interaction, processing logic, model transformation, and code generation.
 
@@ -184,11 +186,7 @@ The workflow can be summarized as follows:
 
 The selection of technologies is based on robustness, scalability, and ecosystem maturity, primarily centered around Python and JavaScript.
 
-
-<img width="2144" height="2047" alt="image" src="https://github.com/user-attachments/assets/e8b20ccb-201a-48ae-8e32-3d35cd6d9c56" />
-
-
-  ###  Frontend
+###  Frontend
 - **React 18** + TypeScript: Used to build a dynamic single-page user interface for UML modeling, AI interaction, and configuration workflows
 - **Vite** (Build tool):Provides fast development server and optimized production builds for the frontend.
 - **Tailwind CSS** (Styling): Enables responsive and consistent UI styling using utility-first CSS classes.
@@ -601,6 +599,11 @@ This section evaluates both KowihanSynapse approaches through three representati
 - **Phase 2 (Consolidation - MDE)**: If concept validated and rules become complex, migration to MDE
 - **Maintenance**: MDE ensures controlled evolution with automatic change propagation
 ## 6\. Installation
+- **Flask 2.3** + Flask-SQLAlchemy 
+
+![Supported Frameworks And Data Base Management Systems](assets/SupportedFM-DBMS-Darkmode.png)
+
+## 5\. Installation
 
 
 ### Prerequisites
