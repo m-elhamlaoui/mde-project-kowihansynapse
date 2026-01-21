@@ -23,7 +23,7 @@ export default function Step1ObjectiveIA({ isDark, initialIdea, onNext }: Step1P
         <div className="flex items-center gap-3 mb-4">
           <Sparkles className={`w-10 h-10 ${isDark ? 'text-cyan-400' : 'text-cyan-600'}`} />
           <h2 className={`text-4xl font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>
-            🎯 What's your API objective?
+            What's your API objective?
           </h2>
         </div>
         <p className={`text-lg ${isDark ? 'text-cyan-200' : 'text-cyan-700'}`}>
@@ -80,7 +80,7 @@ export default function Step1ObjectiveIA({ isDark, initialIdea, onNext }: Step1P
       {/* Info Box */}
       <div className={`p-4 rounded-xl ${isDark ? 'bg-blue-500/10 border border-blue-500/30' : 'bg-blue-50 border border-blue-200'}`}>
         <p className={`text-sm ${isDark ? 'text-blue-300' : 'text-blue-700'}`}>
-          💡 <strong>Tip:</strong> The more detailed your description, the better the AI can understand and generate your API. Include entities, relationships, and key features.
+          <strong>Tip:</strong> The more detailed your description, the better the AI can understand and generate your API. Include entities, relationships, and key features.
         </p>
       </div>
 

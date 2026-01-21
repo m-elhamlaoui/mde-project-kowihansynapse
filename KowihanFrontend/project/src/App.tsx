@@ -341,12 +341,12 @@ const [activeIASessionId, setActiveIASessionId] = useState<string | null>(null);
   };
 
   const handleStep3IANext = async (framework: string) => {
-  setIsProcessing(true); // ✅ Activer le loading
+  setIsProcessing(true);
   
   try {
     const result = await processIAInput(framework);
     
-    console.log('✅ Step 3 (Framework) result:', result); 
+    console.log('Step 3 (Framework) result:', result);
     
     if (result?.success) {
       setProjectDataIA((prev) => ({
@@ -357,14 +357,14 @@ const [activeIASessionId, setActiveIASessionId] = useState<string | null>(null);
      
       setCurrentStepIA(4);
     } else {
-      console.error('❌ Step 3 failed:', result);
+      console.error('Step 3 failed:', result);
       alert('Error processing framework. Please try again.');
     }
   } catch (error) {
-    console.error('❌ Error in handleStep3IANext:', error);
+    console.error('Error in handleStep3IANext:', error);
     alert('An error occurred. Please try again.');
   } finally {
-    setIsProcessing(false); //  Desactiver le loading
+    setIsProcessing(false);
   }
 };
 
@@ -382,7 +382,7 @@ const [activeIASessionId, setActiveIASessionId] = useState<string | null>(null);
   setIsProcessing(true);
   
   try {
-    console.log('🤖 Confirming generation...');
+    console.log('Confirming generation...');
     
     const currentSessionId = projectDataIA.sessionId;
     
@@ -392,12 +392,11 @@ const [activeIASessionId, setActiveIASessionId] = useState<string | null>(null);
       return;
     }
     
-    console.log(' Using sessionId:', currentSessionId);
+    console.log('Using sessionId:', currentSessionId);
     
- 
     const result = await processIAInput('oui');
     
-    console.log('✅ Confirmation result:', result);
+    console.log('Confirmation result:', result);
     
     if (!result?.success) {
       alert('Error confirming generation.');
@@ -405,26 +404,22 @@ const [activeIASessionId, setActiveIASessionId] = useState<string | null>(null);
       return;
     }
     
-   
     const finalSessionId = result.session_id || currentSessionId;
     
-    console.log('📝 Final sessionId for download:', finalSessionId);
+    console.log('Final sessionId for download:', finalSessionId);
     
-  
     setProjectDataIA((prev) => ({
       ...prev,
       sessionId: finalSessionId,
     }));
     
-   
     setActiveIASessionId(finalSessionId);
     
-   
     setCurrentScreen('generating');
     setIsProcessing(false);
     
   } catch (error) {
-    console.error('❌ Error:', error);
+    console.error('Error:', error);
     alert('An error occurred.');
     setIsProcessing(false);
   }
@@ -454,7 +449,7 @@ const [activeIASessionId, setActiveIASessionId] = useState<string | null>(null);
     ? (activeIASessionId || projectDataIA.sessionId || undefined) 
     : undefined;
   
-  console.log('🔍 Passing sessionId to GenerationScreen:', {
+  console.log('Passing sessionId to GenerationScreen:', {
     mode: generationMode,
     activeIASessionId,
     projectDataIASessionId: projectDataIA.sessionId,

@@ -48,14 +48,12 @@ export default function GenerationScreen({ isDark, mode, onComplete, sessionId }
         if (newProgress >= 100) {
           clearInterval(timer);
           
-          // ✅ Mode MDE: téléchargement immédiat (comportement original)
           if (mode === 'mde') {
             setTimeout(() => {
               setIsComplete(true);
-              setIsDownloadReady(true); // MDE est toujours prêt
+              setIsDownloadReady(true);
             }, 500);
           } 
-          // ✅ Mode IA: vérifier si le projet est prêt avant d'activer le bouton
           else {
             setIsComplete(true);
             checkIAProjectReady();
@@ -69,21 +67,20 @@ export default function GenerationScreen({ isDark, mode, onComplete, sessionId }
     return () => clearInterval(timer);
   }, []);
 
-  // ✅ Vérification spécifique au mode IA
   const checkIAProjectReady = async () => {
     if (!sessionId) {
-      console.error('❌ No sessionId for IA mode');
-      setIsDownloadReady(true); // Fallback
+      console.error('No sessionId for IA mode');
+      setIsDownloadReady(true);
       return;
     }
 
-    console.log('🔍 Checking if IA project is ready...');
+    console.log('Checking if IA project is ready...');
     let attempts = 0;
     const maxAttempts = 60; // 2 minutes max
 
     const checkInterval = setInterval(async () => {
       attempts++;
-      console.log(`🔍 Attempt ${attempts}/${maxAttempts}`);
+      console.log(`Attempt ${attempts}/${maxAttempts}`);
 
       try {
         const response = await fetch(
@@ -92,18 +89,18 @@ export default function GenerationScreen({ isDark, mode, onComplete, sessionId }
         );
 
         if (response.ok) {
-          console.log('✅ IA project is ready!');
+          console.log('IA project is ready!');
           clearInterval(checkInterval);
           setIsDownloadReady(true);
         } else if (attempts >= maxAttempts) {
-          console.error('⏱️ Timeout waiting for IA project');
+          console.error('Timeout waiting for IA project');
           clearInterval(checkInterval);
           alert('Generation timeout. The project may still be generating. Check backend logs.');
           setIsDownloadReady(true); // Permettre le téléchargement quand même
         }
       } catch (error) {
         if (attempts >= maxAttempts) {
-          console.error('❌ Error checking IA project:', error);
+          console.error('Error checking IA project:', error);
           clearInterval(checkInterval);
           alert('Error checking project status.');
           setIsDownloadReady(true);
@@ -113,11 +110,9 @@ export default function GenerationScreen({ isDark, mode, onComplete, sessionId }
   };
 
   const handleDownload = () => {
-    // ✅ Mode IA: télécharger depuis l'endpoint IA
     if (mode === 'ia' && sessionId) {
       window.location.href = `http://localhost:5000/api/ia/download/${sessionId}`;
     }
-    // ✅ Mode MDE: le téléchargement a déjà été fait dans handleGenerateMDE
     
     onComplete();
   };
@@ -141,14 +136,14 @@ export default function GenerationScreen({ isDark, mode, onComplete, sessionId }
                   }`}
                   style={{ fontFamily: 'Orbitron, monospace' }}
                 >
-                  {mode === 'mde' ? '🏗️ Synthesizing Your API' : '🤖 AI Crafting Your API'}
+                  {mode === 'mde' ? 'Synthesizing Your API' : 'AI Crafting Your API'}
                 </h2>
                 <p className={`text-xl ${isDark ? 'text-[#E0B0FF]' : 'text-[#7B2D8A]'}`}>
                   {phases[currentPhase].name}...
                 </p>
                 {mode === 'ia' && (
                   <p className={`text-sm ${isDark ? 'text-cyan-300' : 'text-cyan-600'}`}>
-                    🤖 5 AI agents working in parallel
+                    5 AI agents working in parallel
                   </p>
                 )}
               </div>
@@ -286,7 +281,7 @@ export default function GenerationScreen({ isDark, mode, onComplete, sessionId }
                   className={`text-5xl font-black ${isDark ? 'text-white' : 'text-[#1A0B2E]'}`}
                   style={{ fontFamily: 'Orbitron, monospace' }}
                 >
-                  {mode === 'mde' ? '🏗️ Generation Complete!' : '🤖 AI Synthesis Complete!'}
+                  {mode === 'mde' ? 'Generation Complete!' : 'AI Synthesis Complete!'}
                 </h2>
                 <p className={`text-xl ${isDark ? 'text-[#E0B0FF]' : 'text-[#7B2D8A]'}`}>
                   Your API is ready to deploy
@@ -328,7 +323,7 @@ export default function GenerationScreen({ isDark, mode, onComplete, sessionId }
                 {isDownloadReady 
                   ? 'Ready for production deployment'
                   : mode === 'ia'
-                  ? '🤖 AI is finalizing your project... (this may take 30-60 seconds)'
+                  ? 'AI is finalizing your project... (this may take 30-60 seconds)'
                   : 'Processing...'}
               </div>
             </div>
