@@ -42,6 +42,126 @@ The application layer acts as the coordination hub of the system. It manages req
 
 #### *AI Processing Layer (Server-Side)*
 This layer handles all artificial intelligence–related tasks. It processes natural language input, extracts domain entities and relationships, and infers system specifications using large language models.
+The AI Processing Layer employs a **multi-agent architecture** where specialized AI agents collaborate to analyze, enhance, and validate project specifications. The system leverages local LLMs (Llama via Ollama) for intelligent recommendations without external dependencies.
+##### Agent Workflow
+
+**1. Agent Orchestrator**  
+*Central coordinator managing the multi-agent pipeline.*
+
+**Process:**
+1. Receives project specifications (objective, framework, database, entities)
+2. Routes analysis tasks to specialized agents in optimal sequence
+3. Aggregates insights from all agents
+4. Returns enhanced specifications to code generator
+
+**Output:** Unified report containing domain analysis, security assessment, best practices, and documentation.
+
+
+
+**2. Specification Analyzer**  
+*Analyzes project objective to understand domain and complexity.*
+
+**Input:** Natural language project description
+
+**Tasks:**
+- Detects application domain (e-commerce, blog, social network, etc.)
+- Estimates complexity level (low/medium/high)
+- Suggests core entities for the detected domain
+- Recommends appropriate technology stack
+
+**Output:**
+- Domain classification with confidence
+- Complexity assessment
+- Recommended entity structure
+- Tech stack suggestions (framework, database, caching)
+
+**Example:** For "blog platform", suggests User, Post, Comment, Category entities.
+
+
+
+**3. Entity Enricher**  
+*Enhances entities with intelligent attribute and relationship suggestions.*
+
+**Input:** Entity name + current attributes
+
+**Tasks:**
+- Identifies missing standard fields (e.g., User needs avatar, bio, is_active)
+- Suggests appropriate data types for attributes
+- Detects missing foreign keys and relationships
+- Recommends SEO/UX fields (slugs, status, published_at)
+
+**Output:**
+- Suggested attributes with types and justifications
+- Missing relationship recommendations
+- Data validation hints
+- Index optimization suggestions
+
+**Example:** For "Post" entity, suggests slug (SEO), view_count (analytics), featured (boolean).
+
+
+
+**4. Code Optimizer**  
+*Provides best practices and optimization recommendations.*
+
+**Input:** Project specifications + framework choice
+
+**Tasks:**
+- Suggests framework-specific conventions (Django/Flask patterns)
+- Recommends performance optimizations (indexing, caching, query optimization)
+- Proposes design patterns and validation strategies
+- Advises on API design (RESTful patterns, versioning, documentation)
+
+**Output:**
+- Top 10 actionable best practices
+- Code structure recommendations
+- Performance optimization tips
+- Testing strategy guidance
+
+**Example:** "Use select_related() to avoid N+1 queries", "Implement rate limiting on auth endpoints".
+
+
+
+**5. Security Auditor**  
+*Performs comprehensive security analysis.*
+
+**Input:** Complete project specifications
+
+**Tasks:**
+- Validates JWT implementation and password hashing
+- Reviews authorization and permission classes
+- Checks CORS, CSRF, and input validation
+- Audits secret management and HTTPS configuration
+- Maps to OWASP vulnerabilities
+
+**Output:**
+- Security score (A+ to F)
+- Critical warnings requiring immediate attention
+- Recommended security enhancements
+- Compliance checklist
+
+**Example:** "Security Score: B+ | Warning: Set DEBUG=False in production | Enable HTTPS redirect".
+
+
+
+**6. Documentation Generator**  
+*Creates comprehensive project documentation.*
+
+**Input:** Complete specifications + agent insights
+
+**Tasks:**
+- Generates quick start installation guide
+- Creates API reference with examples
+- Documents system architecture and data flow
+- Produces deployment guide with Docker config
+
+**Output:**
+- Multi-section markdown documentation
+- Code examples and curl commands
+- Architecture diagrams (ASCII art)
+- Production deployment checklist
+
+
+
 #### *Model-Driven Engineering Layer (Server-Side)*
 The Model-Driven Engineering layer is responsible for handling formal models and transformations. It validates UML models, applies metamodel constraints, and converts high-level system specifications into platform-independent models. This layer ensures consistency, correctness, and reusability through standardized modeling and transformation mechanisms.
 #### *Code Generation Layer (Server-Side)*
