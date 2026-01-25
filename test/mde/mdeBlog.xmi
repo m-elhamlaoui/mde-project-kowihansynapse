@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmi:XMI xmlns:xmi="http://www.omg.org/XMI" xmlns:api="http://www.kowihan.com/APIMetamodel" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmi:version="2.0">
+  <api:ApplicationModel 
+    description="Personal blog platform with posts, comments, tags and user authentication" 
+    framework="DJANGO" 
+    projectName="blog_api" 
+    pythonVersion="3.11" 
+    xmi:id="_blog_app_001">
+    
+
+    <database 
+      host="localhost" 
+      name="blog_db" 
+      port="5432" 
+      type="POSTGRESQL" 
+      xmi:id="_blog_db_001" 
+      xsi:type="api:DatabaseConfig"/>
+    
+
+    <authentication 
+      enabled="true" 
+      method="JWT" 
+      tokenExpiryMinutes="1440" 
+      xmi:id="_blog_auth_001" 
+      xsi:type="api:AuthenticationConfig"/>
+    
+
+    <apiFeatures 
+      corsEnabled="true" 
+      filtering="true" 
+      pagination="true" 
+      swagger="true" 
+      xmi:id="_blog_features_001" 
+      xsi:type="api:APIFeatures"/>
+    
+
+    <entities 
+      description="Blog user with authentication" 
+      isAbstract="false" 
+      name="User" 
+      tableName="users" 
+      xmi:id="_user_entity_001" 
+      xsi:type="api:Entity">
+      
+      <attributes isNullable="false" isPrimaryKey="true" isUnique="true" name="id" type="UUID" xmi:id="_user_id_001" xsi:type="api:Attribute"/>
+      <attributes isNullable="false" isPrimaryKey="false" isUnique="true" maxLength="150" name="username" type="STRING" xmi:id="_user_username_001" xsi:type="api:Attribute"/>
+      <attributes isNullable="false" isPrimaryKey="false" isUnique="true" name="email" type="EMAIL" xmi:id="_user_email_001" xsi:type="api:Attribute"/>
+      <attributes isNullable="true" isPrimaryKey="false" isUnique="false" name="bio" type="TEXT" xmi:id="_user_bio_001" xsi:type="api:Attribute"/>
+      <attributes isNullable="true" isPrimaryKey="false" isUnique="false" name="avatar" type="URL" xmi:id="_user_avatar_001" xsi:type="api:Attribute"/>
+      <attributes defaultValue="true" isNullable="false" isPrimaryKey="false" isUnique="false" name="isActive" type="BOOLEAN" xmi:id="_user_active_001" xsi:type="api:Attribute"/>
+      <attributes defaultValue="now()" isNullable="false" isPrimaryKey="false" isUnique="false" name="createdAt" type="DATETIME" xmi:id="_user_created_001" xsi:type="api:Attribute"/>
+      <attributes defaultValue="now()" isNullable="false" isPrimaryKey="false" isUnique="false" name="updatedAt" type="DATETIME" xmi:id="_user_updated_001" xsi:type="api:Attribute"/>
+      
+      <indexes name="idx_user_email" isUnique="true" xmi:id="_idx_user_email_001" xsi:type="api:Index">
+        <fields>email</fields>
+      </indexes>
+    </entities>
+    
+
+    <entities 
+      description="Blog post with rich content" 
+      isAbstract="false" 
+      name="Post" 
+      tableName="posts" 
+      xmi:id="_post_entity_001" 
+      xsi:type="api:Entity">
+      
+      <attributes isNullable="false" isPrimaryKey="true" isUnique="true" name="id" type="UUID" xmi:id="_post_id_001" xsi:type="api:Attribute"/>
+      <attributes isNullable="false" isPrimaryKey="false" isUnique="false" maxLength="255" name="title" type="STRING" xmi:id="_post_title_001" xsi:type="api:Attribute"/>
+      <attributes isNullable="false" isPrimaryKey="false" isUnique="true" maxLength="255" name="slug" type="STRING" helpText="SEO-friendly URL slug" xmi:id="_post_slug_001" xsi:type="api:Attribute"/>
+      <attributes isNullable="false" isPrimaryKey="false" isUnique="false" name="content" type="TEXT" xmi:id="_post_content_001" xsi:type="api:Attribute"/>
+      <attributes isNullable="true" isPrimaryKey="false" isUnique="false" name="publishedAt" type="DATETIME" xmi:id="_post_published_001" xsi:type="api:Attribute"/>
+      <attributes defaultValue="0" isNullable="false" isPrimaryKey="false" isUnique="false" name="viewCount" type="INTEGER" xmi:id="_post_views_001" xsi:type="api:Attribute"/>
+      <attributes defaultValue="false" isNullable="false" isPrimaryKey="false" isUnique="false" name="featured" type="BOOLEAN" xmi:id="_post_featured_001" xsi:type="api:Attribute"/>
+      <attributes defaultValue="now()" isNullable="false" isPrimaryKey="false" isUnique="false" name="createdAt" type="DATETIME" xmi:id="_post_created_001" xsi:type="api:Attribute"/>
+      <attributes defaultValue="now()" isNullable="false" isPrimaryKey="false" isUnique="false" name="updatedAt" type="DATETIME" xmi:id="_post_updated_001" xsi:type="api:Attribute"/>
+      
+      <relationships name="author" onDelete="CASCADE" relatedName="posts" targetEntity="User" type="MANY_TO_ONE" xmi:id="_post_author_rel_001" xsi:type="api:Relationship"/>
+      
+      <indexes name="idx_post_slug" isUnique="true" xmi:id="_idx_post_slug_001" xsi:type="api:Index">
+        <fields>slug</fields>
+      </indexes>
+      <indexes name="idx_post_published" isUnique="false" xmi:id="_idx_post_published_001" xsi:type="api:Index">
+        <fields>publishedAt</fields>
+      </indexes>
+    </entities>
+    
+
+    <entities 
+      description="User comment on blog post" 
+      isAbstract="false" 
+      name="Comment" 
+      tableName="comments" 
+      xmi:id="_comment_entity_001" 
+      xsi:type="api:Entity">
+      
+      <attributes isNullable="false" isPrimaryKey="true" isUnique="true" name="id" type="UUID" xmi:id="_comment_id_001" xsi:type="api:Attribute"/>
+      <attributes isNullable="false" isPrimaryKey="false" isUnique="false" name="content" type="TEXT" xmi:id="_comment_content_001" xsi:type="api:Attribute"/>
+      <attributes defaultValue="now()" isNullable="false" isPrimaryKey="false" isUnique="false" name="createdAt" type="DATETIME" xmi:id="_comment_created_001" xsi:type="api:Attribute"/>
+      <attributes defaultValue="now()" isNullable="false" isPrimaryKey="false" isUnique="false" name="updatedAt" type="DATETIME" xmi:id="_comment_updated_001" xsi:type="api:Attribute"/>
+      
+      <relationships name="post" onDelete="CASCADE" relatedName="comments" targetEntity="Post" type="MANY_TO_ONE" xmi:id="_comment_post_rel_001" xsi:type="api:Relationship"/>
+      <relationships name="author" onDelete="SET_NULL" relatedName="comments" targetEntity="User" type="MANY_TO_ONE" xmi:id="_comment_author_rel_001" xsi:type="api:Relationship"/>
+      
+      <indexes name="idx_comment_post" isUnique="false" xmi:id="_idx_comment_post_001" xsi:type="api:Index">
+        <fields>post</fields>
+      </indexes>
+    </entities>
+    
+
+    <entities 
+      description="Post categorization tag" 
+      isAbstract="false" 
+      name="Tag" 
+      tableName="tags" 
+      xmi:id="_tag_entity_001" 
+      xsi:type="api:Entity">
+      
+      <attributes isNullable="false" isPrimaryKey="true" isUnique="true" name="id" type="UUID" xmi:id="_tag_id_001" xsi:type="api:Attribute"/>
+      <attributes isNullable="false" isPrimaryKey="false" isUnique="true" maxLength="50" name="name" type="STRING" xmi:id="_tag_name_001" xsi:type="api:Attribute"/>
+      <attributes isNullable="false" isPrimaryKey="false" isUnique="true" maxLength="50" name="slug" type="STRING" xmi:id="_tag_slug_001" xsi:type="api:Attribute"/>
+      <attributes defaultValue="now()" isNullable="false" isPrimaryKey="false" isUnique="false" name="createdAt" type="DATETIME" xmi:id="_tag_created_001" xsi:type="api:Attribute"/>
+      
+      <relationships name="posts" onDelete="CASCADE" targetEntity="Post" type="MANY_TO_MANY" xmi:id="_tag_posts_rel_001" xsi:type="api:Relationship"/>
+      
+      <indexes name="idx_tag_slug" isUnique="true" xmi:id="_idx_tag_slug_001" xsi:type="api:Index">
+        <fields>slug</fields>
+      </indexes>
+    </entities>
+  </api:ApplicationModel>
+</xmi:XMI>
+
+
+"Plateforme e-commerce multi-vendeurs avec produits, commandes, paiements et gestion des stocks"
