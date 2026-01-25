@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmi:XMI xmlns:xmi="http://www.omg.org/XMI" xmlns:api="http://www.kowihan.com/APIMetamodel" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmi:version="2.0">
+  <api:ApplicationModel 
+    description="Multi-vendor e-commerce platform with inventory management" 
+    framework="DJANGO" 
+    projectName="ecommerce_platform" 
+    pythonVersion="3.11" 
+    xmi:id="_ecom_app_001">
+    
+    <database 
+      host="localhost" 
+      name="ecommerce_db" 
+      port="5432" 
+      type="POSTGRESQL" 
+      xmi:id="_ecom_db_001" 
+      xsi:type="api:DatabaseConfig"/>
+    
+    <authentication 
+      enabled="true" 
+      method="JWT" 
+      tokenExpiryMinutes="1440" 
+      xmi:id="_ecom_auth_001" 
+      xsi:type="api:AuthenticationConfig"/>
+    
+    <apiFeatures 
+      corsEnabled="true" 
+      filtering="true" 
+      pagination="true" 
+      swagger="true" 
+      xmi:id="_ecom_features_001" 
+      xsi:type="api:APIFeatures"/>
+    
+    <!-- ENTITÉ 1: User -->
+    <entities 
+      description="Platform user (customer or vendor)" 
+      isAbstract="false" 
+      name="User" 
+      tableName="users" 
+      xmi:id="_ecom_user_001" 
+      xsi:type="api:Entity">
+      
+      <attributes isNullable="false" isPrimaryKey="true" isUnique="true" name="id" type="UUID" xmi:id="_ecom_user_id_001" xsi:type="api:Attribute"/>
+      <attributes isNullable="false" isPrimaryKey="false" isUnique="true" name="email" type="EMAIL" xmi:id="_ecom_user_email_001" xsi:type="api:Attribute"/>
+      <attributes isNullable="false" isPrimaryKey="false" isUnique="false" maxLength="150" name="firstName" type="STRING" xmi:id="_ecom_user_first_001" xsi:type="api:Attribute"/>
+      <attributes isNullable="false" isPrimaryKey="false" isUnique="false" maxLength="150" name="lastName" type="STRING" xmi:id="_ecom_user_last_001" xsi:type="api:Attribute"/>
+      <attributes defaultValue="customer" isNullable="false" isPrimaryKey="false" isUnique="false" maxLength="20" name="userType" type="STRING" helpText="customer, vendor, admin" xmi:id="_ecom_user_type_001" xsi:type="api:Attribute"/>
+      <attributes defaultValue="true" isNullable="false" isPrimaryKey="false" isUnique="false" name="isActive" type="BOOLEAN" xmi:id="_ecom_user_active_001" xsi:type="api:Attribute"/>
+      <attributes defaultValue="now()" isNullable="false" isPrimaryKey="false" isUnique="false" name="createdAt" type="DATETIME" xmi:id="_ecom_user_created_001" xsi:type="api:Attribute"/>
+      <attributes defaultValue="now()" isNullable="false" isPrimaryKey="false" isUnique="false" name="updatedAt" type="DATETIME" xmi:id="_ecom_user_updated_001" xsi:type="api:Attribute"/>
+      
+      <indexes name="idx_user_email" isUnique="true" xmi:id="_ecom_idx_user_email_001" xsi:type="api:Index">
+        <fields>email</fields>
+      </indexes>
+      <indexes name="idx_user_type" isUnique="false" xmi:id="_ecom_idx_user_type_001" xsi:type="api:Index">
+        <fields>userType</fields>
+      </indexes>
+    </entities>
+    
+    <!-- ENTITÉ 2: Vendor -->
+    <entities 
+      description="Seller/merchant on the platform" 
+      isAbstract="false" 
+      name="Vendor" 
+      tableName="vendors" 
+      xmi:id="_ecom_vendor_001" 
+      xsi:type="api:Entity">
+      
+      <attributes isNullable="false" isPrimaryKey="true" isUnique="true" name="id" type="UUID" xmi:id="_ecom_vendor_id_001" xsi:type="api:Attribute"/>
+      <attributes isNullable="false" isPrimaryKey="false" isUnique="false" maxLength="255" name="storeName" type="STRING" xmi:id="_ecom_vendor_store_001" xsi:type="api:Attribute"/>
+      <attributes isNullable="true" isPrimaryKey="false" isUnique="false" name="storeDescription" type="TEXT" xmi:id="_ecom_vendor_desc_001" xsi:type="api:Attribute"/>
+      <attributes defaultValue="10.00" isNullable="false" isPrimaryKey="false" isUnique="false" name="commissionRate" type="DECIMAL" helpText="Platform commission percentage" xmi:id="_ecom_vendor_comm_001" xsi:type="api:Attribute"/>
+      <attributes defaultValue="pending" isNullable="false" isPrimaryKey="false" isUnique="false" maxLength="20" name="status" type="STRING" helpText="pending, active, suspended" xmi:id="_ecom_vendor_status_001" xsi:type="api:Attribute"/>
+      <attributes defaultValue="now()" isNullable="false" isPrimaryKey="false" isUnique="false" name="createdAt" type="DATETIME" xmi:id="_ecom_vendor_created_001" xsi:type="api:Attribute"/>
+      <attributes defaultValue="now()" isNullable="false" isPrimaryKey="false" isUnique="false" name="updatedAt" type="DATETIME" xmi:id="_ecom_vendor_updated_001" xsi:type="api:Attribute"/>
+      
+      <relationships name="user" onDelete="CASCADE" relatedName="vendorProfile" targetEntity="User" type="ONE_TO_ONE" xmi:id="_ecom_vendor_user_rel_001" xsi:type="api:Relationship"/>
+      
+      <indexes name="idx_vendor_status" isUnique="false" xmi:id="_ecom_idx_vendor_status_001" xsi:type="api:Index">
+        <fields>status</fields>
+      </indexes>
+    </entities>
+    
+
+    <entities 
+      description="Product listed by vendor" 
+      isAbstract="false" 
+      name="Product" 
+      tableName="products" 
+      xmi:id="_ecom_product_001" 
+      xsi:type="api:Entity">
+      
+      <attributes isNullable="false" isPrimaryKey="true" isUnique="true" name="id" type="UUID" xmi:id="_ecom_product_id_001" xsi:type="api:Attribute"/>
+      <attributes isNullable="false" isPrimaryKey="false" isUnique="true" maxLength="100" name="sku" type="STRING" helpText="Stock Keeping Unit" xmi:id="_ecom_product_sku_001" xsi:type="api:Attribute"/>
+      <attributes isNullable="false" isPrimaryKey="false" isUnique="false" maxLength="255" name="name" type="STRING" xmi:id="_ecom_product_name_001" xsi:type="api:Attribute"/>
+      <attributes isNullable="false" isPrimaryKey="false" isUnique="true" maxLength="255" name="slug" type="STRING" xmi:id="_ecom_product_slug_001" xsi:type="api:Attribute"/>
+      <attributes isNullable="false" isPrimaryKey="false" isUnique="false" name="description" type="TEXT" xmi:id="_ecom_product_desc_001" xsi:type="api:Attribute"/>
+      <attributes isNullable="false" isPrimaryKey="false" isUnique="false" name="price" type="DECIMAL" xmi:id="_ecom_product_price_001" xsi:type="api:Attribute"/>
+      <attributes defaultValue="0" isNullable="false" isPrimaryKey="false" isUnique="false" name="stockQuantity" type="INTEGER" xmi:id="_ecom_product_stock_001" xsi:type="api:Attribute"/>
+      <attributes defaultValue="true" isNullable="false" isPrimaryKey="false" isUnique="false" name="isActive" type="BOOLEAN" xmi:id="_ecom_product_active_001" xsi:type="api:Attribute"/>
+      <attributes defaultValue="now()" isNullable="false" isPrimaryKey="false" isUnique="false" name="createdAt" type="DATETIME" xmi:id="_ecom_product_created_001" xsi:type="api:Attribute"/>
+      <attributes defaultValue="now()" isNullable="false" isPrimaryKey="false" isUnique="false" name="updatedAt" type="DATETIME" xmi:id="_ecom_product_updated_001" xsi:type="api:Attribute"/>
+      
+      <relationships name="vendor" onDelete="CASCADE" relatedName="products" targetEntity="Vendor" type="MANY_TO_ONE" xmi:id="_ecom_product_vendor_rel_001" xsi:type="api:Relationship"/>
+      
+      <indexes name="idx_product_sku" isUnique="true" xmi:id="_ecom_idx_product_sku_001" xsi:type="api:Index">
+        <fields>sku</fields>
+      </indexes>
+      <indexes name="idx_product_slug" isUnique="true" xmi:id="_ecom_idx_product_slug_001" xsi:type="api:Index">
+        <fields>slug</fields>
+      </indexes>
+      <indexes name="idx_product_vendor" isUnique="false" xmi:id="_ecom_idx_product_vendor_001" xsi:type="api:Index">
+        <fields>vendor</fields>
+      </indexes>
+      
+      <!-- OPERATIONS (Pour MDE - Prototypes de Méthodes) -->
+      <operations name="checkStock" returnType="boolean" visibility="PUBLIC" xmi:id="_ecom_product_op_stock_001" xsi:type="api:Operation">
+        <parameters name="quantity" type="integer" xmi:id="_ecom_product_op_stock_param_001" xsi:type="api:Parameter"/>
+      </operations>
+      <operations name="updateInventory" returnType="void" visibility="PUBLIC" xmi:id="_ecom_product_op_inv_001" xsi:type="api:Operation">
+        <parameters name="quantity" type="integer" xmi:id="_ecom_product_op_inv_param_001" xsi:type="api:Parameter"/>
+      </operations>
+    </entities>
+    
+    <!-- ENTITÉ 4: Order -->
+    <entities 
+      description="Customer order" 
+      isAbstract="false" 
+      name="Order" 
+      tableName="orders" 
+      xmi:id="_ecom_order_001" 
+      xsi:type="api:Entity">
+      
+      <attributes isNullable="false" isPrimaryKey="true" isUnique="true" name="id" type="UUID" xmi:id="_ecom_order_id_001" xsi:type="api:Attribute"/>
+      <attributes isNullable="false" isPrimaryKey="false" isUnique="true" maxLength="50" name="orderNumber" type="STRING" xmi:id="_ecom_order_number_001" xsi:type="api:Attribute"/>
+      <attributes defaultValue="pending" isNullable="false" isPrimaryKey="false" isUnique="false" maxLength="20" name="status" type="STRING" helpText="pending, confirmed, shipped, delivered, cancelled" xmi:id="_ecom_order_status_001" xsi:type="api:Attribute"/>
+      <attributes isNullable="false" isPrimaryKey="false" isUnique="false" name="totalAmount" type="DECIMAL" xmi:id="_ecom_order_total_001" xsi:type="api:Attribute"/>
+      <attributes defaultValue="now()" isNullable="false" isPrimaryKey="false" isUnique="false" name="createdAt" type="DATETIME" xmi:id="_ecom_order_created_001" xsi:type="api:Attribute"/>
+      <attributes defaultValue="now()" isNullable="false" isPrimaryKey="false" isUnique="false" name="updatedAt" type="DATETIME" xmi:id="_ecom_order_updated_001" xsi:type="api:Attribute"/>
+      
+      <relationships name="customer" onDelete="PROTECT" relatedName="orders" targetEntity="User" type="MANY_TO_ONE" xmi:id="_ecom_order_customer_rel_001" xsi:type="api:Relationship"/>
+      
+      <indexes name="idx_order_number" isUnique="true" xmi:id="_ecom_idx_order_number_001" xsi:type="api:Index">
+        <fields>orderNumber</fields>
+      </indexes>
+      <indexes name="idx_order_status" isUnique="false" xmi:id="_ecom_idx_order_status_001" xsi:type="api:Index">
+        <fields>status</fields>
+      </indexes>
+      <indexes name="idx_order_customer" isUnique="false" xmi:id="_ecom_idx_order_customer_001" xsi:type="api:Index">
+        <fields>customer</fields>
+      </indexes>
+      
+      <!-- OPERATIONS (MDE - Workflows Personnalisés) -->
+      <operations name="calculateTotal" returnType="decimal" visibility="PUBLIC" xmi:id="_ecom_order_op_calc_001" xsi:type="api:Operation"/>
+      <operations name="processPayment" returnType="boolean" visibility="PUBLIC" xmi:id="_ecom_order_op_pay_001" xsi:type="api:Operation">
+        <parameters name="paymentMethod" type="string" xmi:id="_ecom_order_op_pay_param_001" xsi:type="api:Parameter"/>
+      </operations>
+    </entities>
+    
+    <!-- ENTITÉ 5: OrderItem -->
+    <entities 
+      description="Line item in an order" 
+      isAbstract="false" 
+      name="OrderItem" 
+      tableName="order_items" 
+      xmi:id="_ecom_orderitem_001" 
+      xsi:type="api:Entity">
+      
+      <attributes isNullable="false" isPrimaryKey="true" isUnique="true" name="id" type="UUID" xmi:id="_ecom_orderitem_id_001" xsi:type="api:Attribute"/>
+      <attributes isNullable="false" isPrimaryKey="false" isUnique="false" name="quantity" type="INTEGER" xmi:id="_ecom_orderitem_qty_001" xsi:type="api:Attribute"/>
+      <attributes isNullable="false" isPrimaryKey="false" isUnique="false" name="priceAtPurchase" type="DECIMAL" helpText="Price snapshot at time of purchase" xmi:id="_ecom_orderitem_price_001" xsi:type="api:Attribute"/>
+      <attributes defaultValue="now()" isNullable="false" isPrimaryKey="false" isUnique="false" name="createdAt" type="DATETIME" xmi:id="_ecom_orderitem_created_001" xsi:type="api:Attribute"/>
+      
+      <relationships name="order" onDelete="CASCADE" relatedName="items" targetEntity="Order" type="MANY_TO_ONE" xmi:id="_ecom_orderitem_order_rel_001" xsi:type="api:Relationship"/>
+      <relationships name="product" onDelete="PROTECT" relatedName="orderItems" targetEntity="Product" type="MANY_TO_ONE" xmi:id="_ecom_orderitem_product_rel_001" xsi:type="api:Relationship"/>
+      
+      <indexes name="idx_orderitem_order" isUnique="false" xmi:id="_ecom_idx_orderitem_order_001" xsi:type="api:Index">
+        <fields>order</fields>
+      </indexes>
+    </entities>
+    
+    <!-- ENTITÉ 6: Payment -->
+    <entities 
+      description="Payment transaction" 
+      isAbstract="false" 
+      name="Payment" 
+      tableName="payments" 
+      xmi:id="_ecom_payment_001" 
+      xsi:type="api:Entity">
+      
+      <attributes isNullable="false" isPrimaryKey="true" isUnique="true" name="id" type="UUID" xmi:id="_ecom_payment_id_001" xsi:type="api:Attribute"/>
+      <attributes isNullable="false" isPrimaryKey="false" isUnique="true" maxLength="100" name="transactionId" type="STRING" xmi:id="_ecom_payment_trans_001" xsi:type="api:Attribute"/>
+      <attributes isNullable="false" isPrimaryKey="false" isUnique="false" name="amount" type="DECIMAL" xmi:id="_ecom_payment_amount_001" xsi:type="api:Attribute"/>
+      <attributes isNullable="false" isPrimaryKey="false" isUnique="false" maxLength="20" name="method" type="STRING" helpText="credit_card, paypal, bank_transfer" xmi:id="_ecom_payment_method_001" xsi:type="api:Attribute"/>
+<attributes defaultValue="pending" isNullable="false" isPrimaryKey="false" isUnique="false" maxLength="20" name="status" type="STRING" helpText="pending, completed, failed, refunded" xmi:id="_ecom_payment_status_001" xsi:type="api:Attribute"/>
+<attributes defaultValue="now()" isNullable="false" isPrimaryKey="false" isUnique="false" name="createdAt" type="DATETIME" xmi:id="_ecom_payment_created_001" xsi:type="api:Attribute"/>
+<relationships name="order" onDelete="CASCADE" relatedName="payment" targetEntity="Order" type="ONE_TO_ONE" xmi:id="_ecom_payment_order_rel_001" xsi:type="api:Relationship"/>
+  
+  <indexes name="idx_payment_trans" isUnique="true" xmi:id="_ecom_idx_payment_trans_001" xsi:type="api:Index">
+    <fields>transactionId</fields>
+  </indexes>
+  <indexes name="idx_payment_status" isUnique="false" xmi:id="_ecom_idx_payment_status_001" xsi:type="api:Index">
+    <fields>status</fields>
+  </indexes>
+</entities>
+
+<!-- INTERACTIONS (Pour MDE - Diagrammes de Séquence) -->
+<interactions 
+  name="ProcessOrder" 
+  httpMethod="POST" 
+  endpoint="/api/orders/process" 
+  useCaseDescription="Process complete order with payment and inventory update"
+  xmi:id="_ecom_inter_process_001" 
+  xsi:type="api:Interaction">
+  
+  <participants name="Customer" actorType="ACTOR" xmi:id="_ecom_part_customer_001" xsi:type="api:Participant"/>
+  <participants name="OrderService" actorType="SYSTEM" xmi:id="_ecom_part_orderserv_001" xsi:type="api:Participant"/>
+  <participants name="Order" actorType="ENTITY" entityName="Order" xmi:id="_ecom_part_order_001" xsi:type="api:Participant"/>
+  <participants name="Payment" actorType="ENTITY" entityName="Payment" xmi:id="_ecom_part_payment_001" xsi:type="api:Participant"/>
+  <participants name="Product" actorType="ENTITY" entityName="Product" xmi:id="_ecom_part_product_001" xsi:type="api:Participant"/>
+  
+  <messages sequenceNumber="1" operation="createOrder" messageType="SYNCHRONOUS" xmi:id="_ecom_msg_001" xsi:type="api:Message">
+    <fromParticipant xsi:type="api:Participant" href="#_ecom_part_customer_001"/>
+    <toParticipant xsi:type="api:Participant" href="#_ecom_part_orderserv_001"/>
+  </messages>
+  <messages sequenceNumber="2" operation="checkStock" messageType="SYNCHRONOUS" xmi:id="_ecom_msg_002" xsi:type="api:Message">
+    <fromParticipant xsi:type="api:Participant" href="#_ecom_part_orderserv_001"/>
+    <toParticipant xsi:type="api:Participant" href="#_ecom_part_product_001"/>
+  </messages>
+  <messages sequenceNumber="3" operation="processPayment" messageType="SYNCHRONOUS" xmi:id="_ecom_msg_003" xsi:type="api:Message">
+    <fromParticipant xsi:type="api:Participant" href="#_ecom_part_orderserv_001"/>
+    <toParticipant xsi:type="api:Participant" href="#_ecom_part_payment_001"/>
+  </messages>
+  <messages sequenceNumber="4" operation="updateInventory" messageType="SYNCHRONOUS" xmi:id="_ecom_msg_004" xsi:type="api:Message">
+    <fromParticipant xsi:type="api:Participant" href="#_ecom_part_orderserv_001"/>
+    <toParticipant xsi:type="api:Participant" href="#_ecom_part_product_001"/>
+  </messages>
+  <messages sequenceNumber="5" operation="orderConfirmation" messageType="REPLY" xmi:id="_ecom_msg_005" xsi:type="api:Message">
+    <fromParticipant xsi:type="api:Participant" href="#_ecom_part_orderserv_001"/>
+    <toParticipant xsi:type="api:Participant" href="#_ecom_part_customer_001"/>
+  </messages>
+</interactions>
+</api:ApplicationModel>
+</xmi:XMI>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmi:XMI xmlns:xmi="http://www.omg.org/XMI" xmlns:api="http://www.kowihan.com/APIMetamodel" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmi:version="2.0">
+  <api:ApplicationModel 
+    description="Simple blog API" 
+    framework="DJANGO" 
+    projectName="blog_api" 
+    pythonVersion="3.11" 
+    xmi:id="_app">
+    
+    <database 
+      host="localhost" 
+      name="blog_db" 
+      port="5432" 
+      type="POSTGRESQL" 
+      xmi:id="_db" 
+      xsi:type="api:DatabaseConfig"/>
+    
+    <authentication 
+      enabled="true" 
+      method="JWT" 
+      tokenExpiryMinutes="1440" 
+      xmi:id="_auth" 
+      xsi:type="api:AuthenticationConfig"/>
+    
+    <apiFeatures 
+      corsEnabled="true" 
+      filtering="true" 
+      pagination="true" 
+      swagger="true" 
+      xmi:id="_feat" 
+      xsi:type="api:APIFeatures"/>
+    
+    <entities 
+      description="Blog user" 
+      isAbstract="false" 
+      name="User" 
+      tableName="users" 
+      xmi:id="_user" 
+      xsi:type="api:Entity">
+      
+      <attributes isNullable="false" isPrimaryKey="true" isUnique="true" name="id" type="UUID" xmi:id="_user_id" xsi:type="api:Attribute"/>
+      <attributes isNullable="false" isPrimaryKey="false" isUnique="true" name="email" type="EMAIL" xmi:id="_user_email" xsi:type="api:Attribute"/>
+      <attributes defaultValue="now()" isNullable="false" isPrimaryKey="false" isUnique="false" name="createdAt" type="DATETIME" xmi:id="_user_created" xsi:type="api:Attribute"/>
+    </entities>
+    
+    <entities 
+      description="Blog post" 
+      isAbstract="false" 
+      name="Post" 
+      tableName="posts" 
+      xmi:id="_post" 
+      xsi:type="api:Entity">
+      
+      <attributes isNullable="false" isPrimaryKey="true" isUnique="true" name="id" type="UUID" xmi:id="_post_id" xsi:type="api:Attribute"/>
+      <attributes isNullable="false" isPrimaryKey="false" isUnique="false" maxLength="255" name="title" type="STRING" xmi:id="_post_title" xsi:type="api:Attribute"/>
+      <attributes isNullable="false" isPrimaryKey="false" isUnique="false" name="content" type="TEXT" xmi:id="_post_content" xsi:type="api:Attribute"/>
+      <attributes defaultValue="now()" isNullable="false" isPrimaryKey="false" isUnique="false" name="createdAt" type="DATETIME" xmi:id="_post_created" xsi:type="api:Attribute"/>
+      
+      <relationships name="author" onDelete="CASCADE" targetEntity="User" type="MANY_TO_ONE" xmi:id="_post_author" xsi:type="api:Relationship"/>
+    </entities>
+  </api:ApplicationModel>
+</xmi:XMI>

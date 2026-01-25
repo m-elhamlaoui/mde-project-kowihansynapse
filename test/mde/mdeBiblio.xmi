@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmi:XMI xmlns:xmi="http://www.omg.org/XMI" xmlns:api="http://www.kowihan.com/APIMetamodel" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmi:version="2.0">
+  <api:ApplicationModel 
+    description="Library management system with books, authors, members, loans and reservations" 
+    framework="DJANGO" 
+    projectName="library_management" 
+    pythonVersion="3.11" 
+    xmi:id="_lib_app_001">
+    
+    <database 
+      host="localhost" 
+      name="library_db" 
+      port="5432" 
+      type="POSTGRESQL" 
+      xmi:id="_lib_db_001" 
+      xsi:type="api:DatabaseConfig"/>
+    
+    <authentication 
+      enabled="true" 
+      method="JWT" 
+      tokenExpiryMinutes="720" 
+      xmi:id="_lib_auth_001" 
+      xsi:type="api:AuthenticationConfig"/>
+    
+    <apiFeatures 
+      corsEnabled="true" 
+      filtering="true" 
+      pagination="true" 
+      swagger="true" 
+      xmi:id="_lib_features_001" 
+      xsi:type="api:APIFeatures"/>
+    
+    <!-- ENTITÉ 1: Member -->
+    <entities 
+      description="Library member who can borrow books" 
+      isAbstract="false" 
+      name="Member" 
+      tableName="members" 
+      xmi:id="_lib_member_001" 
+      xsi:type="api:Entity">
+      
+      <attributes isNullable="false" isPrimaryKey="true" isUnique="true" name="id" type="UUID" xmi:id="_lib_member_id_001" xsi:type="api:Attribute"/>
+      <attributes isNullable="false" isPrimaryKey="false" isUnique="true" maxLength="20" name="memberId" type="STRING" helpText="Unique member identifier" xmi:id="_lib_member_memberid_001" xsi:type="api:Attribute"/>
+      <attributes isNullable="false" isPrimaryKey="false" isUnique="false" maxLength="150" name="firstName" type="STRING" xmi:id="_lib_member_first_001" xsi:type="api:Attribute"/>
+      <attributes isNullable="false" isPrimaryKey="false" isUnique="false" maxLength="150" name="lastName" type="STRING" xmi:id="_lib_member_last_001" xsi:type="api:Attribute"/>
+      <attributes isNullable="false" isPrimaryKey="false" isUnique="true" name="email" type="EMAIL" xmi:id="_lib_member_email_001" xsi:type="api:Attribute"/>
+      <attributes isNullable="true" isPrimaryKey="false" isUnique="false" maxLength="20" name="phone" type="STRING" xmi:id="_lib_member_phone_001" xsi:type="api:Attribute"/>
+      <attributes isNullable="false" isPrimaryKey="false" isUnique="false" name="joinDate" type="DATE" xmi:id="_lib_member_join_001" xsi:type="api:Attribute"/>
+      <attributes defaultValue="active" isNullable="false" isPrimaryKey="false" isUnique="false" maxLength="20" name="status" type="STRING" helpText="active, suspended, expired" xmi:id="_lib_member_status_001" xsi:type="api:Attribute"/>
+      <attributes defaultValue="5" isNullable="false" isPrimaryKey="false" isUnique="false" maxValue="10" minValue="1" name="maxLoans" type="INTEGER" helpText="Maximum concurrent loans allowed" xmi:id="_lib_member_maxloans_001" xsi:type="api:Attribute"/>
+      <attributes defaultValue="now()" isNullable="false" isPrimaryKey="false" isUnique="false" name="createdAt" type="DATETIME" xmi:id="_lib_member_created_001" xsi:type="api:Attribute"/>
+      <attributes defaultValue="now()" isNullable="false" isPrimaryKey="false" isUnique="false" name="updatedAt" type="DATETIME" xmi:id="_lib_member_updated_001" xsi:type="api:Attribute"/>
+      
+      <indexes name="idx_member_memberid" isUnique="true" xmi:id="_lib_idx_member_memberid_001" xsi:type="api:Index">
+        <fields>memberId</fields>
+      </indexes>
+      <indexes name="idx_member_email" isUnique="true" xmi:id="_lib_idx_member_email_001" xsi:type="api:Index">
+        <fields>email</fields>
+      </indexes>
+      <indexes name="idx_member_status" isUnique="false" xmi:id="_lib_idx_member_status_001" xsi:type="api:Index">
+        <fields>status</fields>
+      </indexes>
+      
+
+      <operations name="canBorrow" returnType="boolean" visibility="PUBLIC" xmi:id="_lib_member_op_can_001" xsi:type="api:Operation"/>
+      <operations name="getCurrentLoansCount" returnType="integer" visibility="PUBLIC" xmi:id="_lib_member_op_count_001" xsi:type="api:Operation"/>
+    </entities>
+    
+
+    <entities 
+      description="Book author" 
+      isAbstract="false" 
+      name="Author" 
+      tableName="authors" 
+      xmi:id="_lib_author_001" 
+      xsi:type="api:Entity">
+      
+      <attributes isNullable="false" isPrimaryKey="true" isUnique="true" name="id" type="UUID" xmi:id="_lib_author_id_001" xsi:type="api:Attribute"/>
+      <attributes isNullable="false" isPrimaryKey="false" isUnique="false" maxLength="255" name="name" type="STRING" xmi:id="_lib_author_name_001" xsi:type="api:Attribute"/>
+      <attributes isNullable="true" isPrimaryKey="false" isUnique="false" name="biography" type="TEXT" xmi:id="_lib_author_bio_001" xsi:type="api:Attribute"/>
+      <attributes isNullable="true" isPrimaryKey="false" isUnique="false" name="birthDate" type="DATE" xmi:id="_lib_author_birth_001" xsi:type="api:Attribute"/>
+      <attributes isNullable="true" isPrimaryKey="false" isUnique="false" maxLength="100" name="nationality" type="STRING" xmi:id="_lib_author_nat_001" xsi:type="api:Attribute"/>
+      <attributes defaultValue="now()" isNullable="false" isPrimaryKey="false" isUnique="false" name="createdAt" type="DATETIME" xmi:id="_lib_author_created_001" xsi:type="api:Attribute"/>
+      <attributes defaultValue="now()" isNullable="false" isPrimaryKey="false" isUnique="false" name="updatedAt" type="DATETIME" xmi:id="_lib_author_updated_001" xsi:type="api:Attribute"/>
+      
+      <indexes name="idx_author_name" isUnique="false" xmi:id="_lib_idx_author_name_001" xsi:type="api:Index">
+        <fields>name</fields>
+      </indexes>
+    </entities>
+    
+
+    <entities 
+      description="Book category/genre" 
+      isAbstract="false" 
+      name="Category" 
+      tableName="categories" 
+      xmi:id="_lib_category_001" 
+      xsi:type="api:Entity">
+      
+      <attributes isNullable="false" isPrimaryKey="true" isUnique="true" name="id" type="UUID" xmi:id="_lib_category_id_001" xsi:type="api:Attribute"/>
+      <attributes isNullable="false" isPrimaryKey="false" isUnique="true" maxLength="100" name="name" type="STRING" xmi:id="_lib_category_name_001" xsi:type="api:Attribute"/>
+      <attributes isNullable="true" isPrimaryKey="false" isUnique="false" name="description" type="TEXT" xmi:id="_lib_category_desc_001" xsi:type="api:Attribute"/>
+      <attributes defaultValue="now()" isNullable="false" isPrimaryKey="false" isUnique="false" name="createdAt" type="DATETIME" xmi:id="_lib_category_created_001" xsi:type="api:Attribute"/>
+      
+      <indexes name="idx_category_name" isUnique="true" xmi:id="_lib_idx_category_name_001" xsi:type="api:Index">
+        <fields>name</fields>
+      </indexes>
+    </entities>
+    
+
+    <entities 
+      description="Book in library collection" 
+      isAbstract="false" 
+      name="Book" 
+      tableName="books" 
+      xmi:id="_lib_book_001" 
+      xsi:type="api:Entity">
+      
+      <attributes isNullable="false" isPrimaryKey="true" isUnique="true" name="id" type="UUID" xmi:id="_lib_book_id_001" xsi:type="api:Attribute"/>
+      <attributes isNullable="false" isPrimaryKey="false" isUnique="true" maxLength="13" name="isbn" type="STRING" helpText="International Standard Book Number" xmi:id="_lib_book_isbn_001" xsi:type="api:Attribute"/>
+      <attributes isNullable="false" isPrimaryKey="false" isUnique="false" maxLength="255" name="title" type="STRING" xmi:id="_lib_book_title_001" xsi:type="api:Attribute"/>
+      <attributes isNullable="true" isPrimaryKey="false" isUnique="false" name="description" type="TEXT" xmi:id="_lib_book_desc_001" xsi:type="api:Attribute"/>
+      <attributes isNullable="true" isPrimaryKey="false" isUnique="false" name="publishedDate" type="DATE" xmi:id="_lib_book_published_001" xsi:type="api:Attribute"/>
+      <attributes isNullable="true" isPrimaryKey="false" isUnique="false" maxLength="100" name="publisher" type="STRING" xmi:id="_lib_book_publisher_001" xsi:type="api:Attribute"/>
+      <attributes isNullable="true" isPrimaryKey="false" isUnique="false" name="pageCount" type="INTEGER" xmi:id="_lib_book_pages_001" xsi:type="api:Attribute"/>
+      <attributes defaultValue="available" isNullable="false" isPrimaryKey="false" isUnique="false" maxLength="20" name="status" type="STRING" helpText="available, borrowed, reserved, maintenance" xmi:id="_lib_book_status_001" xsi:type="api:Attribute"/>
+      <attributes isNullable="true" isPrimaryKey="false" isUnique="false" maxLength="100" name="location" type="STRING" helpText="Physical location in library" xmi:id="_lib_book_location_001" xsi:type="api:Attribute"/>
+      <attributes defaultValue="now()" isNullable="false" isPrimaryKey="false" isUnique="false" name="createdAt" type="DATETIME" xmi:id="_lib_book_created_001" xsi:type="api:Attribute"/>
+      <attributes defaultValue="now()" isNullable="false" isPrimaryKey="false" isUnique="false" name="updatedAt" type="DATETIME" xmi:id="_lib_book_updated_001" xsi:type="api:Attribute"/>
+      
+      <relationships name="authors" onDelete="PROTECT" targetEntity="Author" type="MANY_TO_MANY" xmi:id="_lib_book_authors_rel_001" xsi:type="api:Relationship"/>
+      <relationships name="category" onDelete="SET_NULL" relatedName="books" targetEntity="Category" type="MANY_TO_ONE" xmi:id="_lib_book_category_rel_001" xsi:type="api:Relationship"/>
+      
+      <indexes name="idx_book_isbn" isUnique="true" xmi:id="_lib_idx_book_isbn_001" xsi:type="api:Index">
+        <fields>isbn</fields>
+      </indexes>
+      <indexes name="idx_book_status" isUnique="false" xmi:id="_lib_idx_book_status_001" xsi:type="api:Index">
+        <fields>status</fields>
+      </indexes>
+      <indexes name="idx_book_title" isUnique="false" xmi:id="_lib_idx_book_title_001" xsi:type="api:Index">
+        <fields>title</fields>
+      </indexes>
+      
+
+      <operations name="isAvailable" returnType="boolean" visibility="PUBLIC" xmi:id="_lib_book_op_avail_001" xsi:type="api:Operation"/>
+      <operations name="markAsBorrowed" returnType="void" visibility="PUBLIC" xmi:id="_lib_book_op_borrow_001" xsi:type="api:Operation"/>
+      <operations name="markAsReturned" returnType="void" visibility="PUBLIC" xmi:id="_lib_book_op_return_001" xsi:type="api:Operation"/>
+    </entities>
+    
+
+    <entities 
+      description="Book loan transaction" 
+      isAbstract="false" 
+      name="Loan" 
+      tableName="loans" 
+      xmi:id="_lib_loan_001" 
+      xsi:type="api:Entity">
+      
+      <attributes isNullable="false" isPrimaryKey="true" isUnique="true" name="id" type="UUID" xmi:id="_lib_loan_id_001" xsi:type="api:Attribute"/>
+      <attributes isNullable="false" isPrimaryKey="false" isUnique="false" name="loanDate" type="DATE" xmi:id="_lib_loan_loandate_001" xsi:type="api:Attribute"/>
+      <attributes isNullable="false" isPrimaryKey="false" isUnique="false" name="dueDate" type="DATE" helpText="14 days from loan date" xmi:id="_lib_loan_duedate_001" xsi:type="api:Attribute"/>
+      <attributes isNullable="true" isPrimaryKey="false" isUnique="false" name="returnDate" type="DATE" xmi:id="_lib_loan_returndate_001" xsi:type="api:Attribute"/>
+      <attributes defaultValue="active" isNullable="false" isPrimaryKey="false" isUnique="false" maxLength="20" name="status" type="STRING" helpText="active, returned, overdue" xmi:id="_lib_loan_status_001" xsi:type="api:Attribute"/>
+      <attributes defaultValue="0.00" isNullable="false" isPrimaryKey="false" isUnique="false" name="lateFee" type="DECIMAL" helpText="Penalty for overdue return" xmi:id="_lib_loan_latefee_001" xsi:type="api:Attribute"/>
+      <attributes defaultValue="now()" isNullable="false" isPrimaryKey="false" isUnique="false" name="createdAt" type="DATETIME" xmi:id="_lib_loan_created_001" xsi:type="api:Attribute"/>
+      <attributes defaultValue="now()" isNullable="false" isPrimaryKey="false" isUnique="false" name="updatedAt" type="DATETIME" xmi:id="_lib_loan_updated_001" xsi:type="api:Attribute"/>
+      
+      <relationships name="member" onDelete="PROTECT" relatedName="loans" targetEntity="Member" type="MANY_TO_ONE" xmi:id="_lib_loan_member_rel_001" xsi:type="api:Relationship"/>
+      <relationships name="book" onDelete="PROTECT" relatedName="loans" targetEntity="Book" type="MANY_TO_ONE" xmi:id="_lib_loan_book_rel_001" xsi:type="api:Relationship"/>
+      
+      <indexes name="idx_loan_status" isUnique="false" xmi:id="_lib_idx_loan_status_001" xsi:type="api:Index">
+        <fields>status</fields>
+      </indexes>
+      <indexes name="idx_loan_member" isUnique="false" xmi:id="_lib_idx_loan_member_001" xsi:type="api:Index">
+        <fields>member</fields>
+      </indexes>
+      <indexes name="idx_loan_duedate" isUnique="false" xmi:id="_lib_idx_loan_duedate_001" xsi:type="api:Index">
+        <fields>dueDate</fields>
+      </indexes>
+      
+      <!-- OPERATIONS (MDE - Prototypes avec Règles Métier) -->
+      <operations name="calculateLateFee" returnType="decimal" visibility="PUBLIC" xmi:id="_lib_loan_op_fee_001" xsi:type="api:Operation"/>
+      <operations name="isOverdue" returnType="boolean" visibility="PUBLIC" xmi:id="_lib_loan_op_overdue_001" xsi:type="api:Operation"/>
+      <operations name="renewLoan" returnType="boolean" visibility="PUBLIC" xmi:id="_lib_loan_op_renew_001" xsi:type="api:Operation"/>
+    </entities>
+    
+
+    <entities 
+      description="Book reservation by member" 
+      isAbstract="false" 
+      name="Reservation" 
+      tableName="reservations" 
+      xmi:id="_lib_reservation_001" 
+      xsi:type="api:Entity">
+      
+      <attributes isNullable="false" isPrimaryKey="true" isUnique="true" name="id" type="UUID" xmi:id="_lib_reservation_id_001" xsi:type="api:Attribute"/>
+      <attributes isNullable="false" isPrimaryKey="false" isUnique="false" name="reservationDate" type="DATE" xmi:id="_lib_reservation_resdate_001" xsi:type="api:Attribute"/>
+      <attributes isNullable="true" isPrimaryKey="false" isUnique="false" name="expiryDate" type="DATE" helpText="Reservation expires if not fulfilled" xmi:id="_lib_reservation_expiry_001" xsi:type="api:Attribute"/>
+      <attributes defaultValue="pending" isNullable="false" isPrimaryKey="false" isUnique="false" maxLength="20" name="status" type="STRING" helpText="pending, fulfilled, cancelled, expired" xmi:id="_lib_reservation_status_001" xsi:type="api:Attribute"/>
+      <attributes defaultValue="now()" isNullable="false" isPrimaryKey="false" isUnique="false" name="createdAt" type="DATETIME" xmi:id="_lib_reservation_created_001" xsi:type="api:Attribute"/>
+      <attributes defaultValue="now()" isNullable="false" isPrimaryKey="false" isUnique="false" name="updatedAt" type="DATETIME" xmi:id="_lib_reservation_updated_001" xsi:type="api:Attribute"/>
+      
+      <relationships name="member" onDelete="CASCADE" relatedName="reservations" targetEntity="Member" type="MANY_TO_ONE" xmi:id="_lib_reservation_member_rel_001" xsi:type="api:Relationship"/>
+      <relationships name="book" onDelete="CASCADE" relatedName="reservations" targetEntity="Book" type="MANY_TO_ONE" xmi:id="_lib_reservation_book_rel_001" xsi:type="api:Relationship"/>
+      
+      <indexes name="idx_reservation_status" isUnique="false" xmi:id="_lib_idx_reservation_status_001" xsi:type="api:Index">
+        <fields>status</fields>
+      </indexes>
+      <indexes name="idx_reservation_member" isUnique="false" xmi:id="_lib_idx_reservation_member_001" xsi:type="api:Index">
+        <fields>member</fields>
+      </indexes>
+    </entities>
+    
+
+    <interactions 
+      name="BorrowBook" 
+      httpMethod="POST" 
+      endpoint="/api/loans/borrow" 
+      useCaseDescription="Member borrows a book with validation checks"
+      xmi:id="_lib_inter_borrow_001" 
+      xsi:type="api:Interaction">
+      
+      <participants name="Member" actorType="ACTOR" xmi:id="_lib_part_member_001" xsi:type="api:Participant"/>
+      <participants name="LoanService" actorType="SYSTEM" xmi:id="_lib_part_loanserv_001" xsi:type="api:Participant"/>
+      <participants name="Member_Entity" actorType="ENTITY" entityName="Member" xmi:id="_lib_part_member_ent_001" xsi:type="api:Participant"/>
+      <participants name="Book" actorType="ENTITY" entityName="Book" xmi:id="_lib_part_book_001" xsi:type="api:Participant"/>
+      <participants name="Loan" actorType="ENTITY" entityName="Loan" xmi:id="_lib_part_loan_001" xsi:type="api:Participant"/>
+      
+      <messages sequenceNumber="1" operation="requestBorrow" messageType="SYNCHRONOUS" xmi:id="_lib_msg_001" xsi:type="api:Message">
+        <fromParticipant xsi:type="api:Participant" href="#_lib_part_member_001"/>
+        <toParticipant xsi:type="api:Participant" href="#_lib_part_loanserv_001"/>
+      </messages>
+      <messages sequenceNumber="2" operation="canBorrow" messageType="SYNCHRONOUS" xmi:id="_lib_msg_002" xsi:type="api:Message">
+        <fromParticipant xsi:type="api:Participant" href="#_lib_part_loanserv_001"/>
+        <toParticipant xsi:type="api:Participant" href="#_lib_part_member_ent_001"/>
+      </messages>
+      <messages sequenceNumber="3" operation="isAvailable" messageType="SYNCHRONOUS" xmi:id="_lib_msg_003" xsi:type="api:Message">
+        <fromParticipant xsi:type="api:Participant" href="#_lib_part_loanserv_001"/>
+        <toParticipant xsi:type="api:Participant" href="#_lib_part_book_001"/>
+      </messages>
+      <messages sequenceNumber="4" operation="createLoan" messageType="CREATE" xmi:id="_lib_msg_004" xsi:type="api:Message">
+        <fromParticipant xsi:type="api:Participant" href="#_lib_part_loanserv_001"/>
+        <toParticipant xsi:type="api:Participant" href="#_lib_part_loan_001"/>
+      </messages>
+      <messages sequenceNumber="5" operation="markAsBorrowed" messageType="SYNCHRONOUS" xmi:id="_lib_msg_005" xsi:type="api:Message">
+        <fromParticipant xsi:type="api:Participant" href="#_lib_part_loanserv_001"/>
+        <toParticipant xsi:type="api:Participant" href="#_lib_part_book_001"/>
+      </messages>
+      <messages sequenceNumber="6" operation="loanConfirmation" messageType="REPLY" xmi:id="_lib_msg_006" xsi:type="api:Message">
+        <fromParticipant xsi:type="api:Participant" href="#_lib_part_loanserv_001"/>
+        <toParticipant xsi:type="api:Participant" href="#_lib_part_member_001"/>
+      </messages>
+    </interactions>
+  </api:ApplicationModel>
+</xmi:XMI>
